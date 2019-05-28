@@ -1,0 +1,56 @@
+{% extends "quizz_app/base.html" %}
+{% load staticfiles %}
+{% block head_css_section %}
+    <link href="{% static 'css/login.css' %}" rel="stylesheet" media="screen">
+{% endblock head_css_section %}
+{% block title %}SIGN UP{% endblock title %}
+{% block content %}
+    {% if registered %}
+        <div class="jumbotron text-center">
+            <h1>THANKS FOR SIGNING UP!</h1>
+        </div>
+    {% endif %}
+    {% if registered == False %}
+        <div class="container-fluid ">
+            <div class="container-fluid registration-container col-md-6 col-md-offset-3">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <h2>SIGN UP:</h2>
+                        <form enctype="multipart/form-data" method="post">
+                            {% csrf_token %}
+                            {% for field in user_form %}
+                                <div class="form-group">
+                                    <label class="control-label" for="id_{{ field.name }}">{{ field.label }}</label>
+                                    {{ field }}
+                                    <p>{{ field.errors }}{{ forms.non_field_errors }}</p>
+                                    {% if field.help_text %}
+                                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+
+
+                            <div class="text-center">
+                                <input class="btn btn-primary" type="submit" name="" value="Sign up"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <h2>Sign in here :</h2>
+                        <form action="{% url 'account_app:user_login' %}">
+                            <div class="text-center">
+                                <input class="btn btn-primary" type="submit" value="LOGIN"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <a class="btn btn-primary " style='margin: 5% 50%;' href="{% url 'account_app:user_login' %}">Login</a>
+    {% endif %}
+
+{% endblock %}

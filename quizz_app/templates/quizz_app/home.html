@@ -1,0 +1,91 @@
+{% extends "quizz_app/base.html" %}
+{% load staticfiles %}
+{% block head_css_page %}
+    <link href="{% static 'css/login.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'css/coffee.css' %}" rel="stylesheet" media="screen">
+{% endblock head_css_page %}
+{% block title %}HOME{% endblock title %}
+{% block content %}
+
+        {% if warning %}
+
+    <div class="jumbotron text-center">
+            <div class="alert alert-warning" role="alert">
+                {{ warning }}
+            </div>
+                </div>
+        {% endif %}
+
+
+
+
+    <div class="test-container">
+    <div class="row">
+        <div  class=" col-12 col-offset-3 mt-3"  style="text-align:center;">
+        <button class=" end btn-warning btn " >ADD TEST</button>
+            </div>
+    </div>
+
+
+    </div>
+    <script>
+        $(document).ready(function () {
+            let test_json = {{ available_tests|safe}};
+
+            let html_category_2 = " </div>\
+                </a>\
+            </div>\
+            </div>";
+
+            for (category in test_json) {
+                let html_category_1 = "<div class='card-container row'>\<" +
+                    "div class='card col-12 col-md-4 col-lg-3 mt-4 mx-4 ' id='" + category + "'>\
+                                    <a  >\
+                                            <div class='card-block' style='background-color:var(--sandy-brown);'>";
+                let title = "<h4 class='card-title >" + category + "</h4>";
+                let desc = "<p class='card-text'>" + category + "</p>";
+
+                $(".test-container").append(html_category_1 + title + desc + html_category_2)
+
+                for (test in test_json[category]) {
+                    let test_name = test_json[category][test]['test_name']
+                    let test_des = test_json[category][test]['test_description']
+                    let titleT = "<h4 class='card-title '>" + test_name + "</h4>";
+                    let descT = "<p class='card-text'>" + test_des + "</p>";
+                    let test_id = test_json[category][test]['id']
+
+                    let test_url = "{% url 'quizz_app:test_selection' 0 %}";
+                     test_url =test_url.replace('0',test_id)
+                    console.log(test_url )
+                    let sel = ""
+
+                    if (test_json[category][test]['test_tries']>0){
+                        sel="choice-selected"
+                    }
+
+                    let html_test_1 = "<div class='card col-12 col-md-4 col-lg-3 mt-4 mx-5 animate-left " + category +" "+ sel +"' style='display:none' id='test_" + test_json[category][test]['id'] + "' >\
+                                    <a href='"+test_url + "'>\
+                                            <div class='card-block' style='background-color:#E9C46A;'>";
+                    let html_test_2 = " </div>\
+                        <div class='card-footer'>\
+                            <img class='card-logo' src='/static/images/svgs/help.svg'>\
+                        </div>\
+                            </a>\
+                        </div>";
+                    let full_test = html_test_1 + titleT + descT + html_test_2;
+                    $("#" + category).after(full_test)
+                }
+            }
+            $(".card").click(function () {
+                let bloque = $(this).attr('id')
+                console.log($("." + bloque).html())
+                $("." + bloque).toggle();
+            });
+        });
+
+    </script>
+
+    {% block footer_javascript_page %}
+
+    {% endblock footer_javascript_page %}
+{% endblock %}

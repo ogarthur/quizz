@@ -1,0 +1,38 @@
+{% extends "quizz_app/base.html" %}
+{% load staticfiles %}
+{% block head_css_section %}
+    <link href="{% static 'css/login.css' %}" rel="stylesheet" media="screen">
+{% endblock head_css_section %}
+{% block content %}
+
+    <div class="jumbotron text-center">
+        <h1>{{ user_data.user.username|default:'USER' }}</h1>
+
+
+    </div>
+
+    <div class="container-fluid ">
+        <div class="container-fluid registration-container col-md-6 col-md-offset-3">
+            <div class="row">
+
+                <h2 class="col-12"><u>USER INFO:</u></h2>
+                <div class="col-6"><span class="profile-header">ID:</span></div>
+                <div class="col-6 user-data"><span class="profile-data">{{ user_data.user.id }}</span></div>
+                <div class="col-6"><span class="profile-header">USERNAME:</span></div>
+                <div class="col-6 user-data"><span class="profile-data">{{ user_data.user.username }}</span></div>
+                {% if user.first_name %}
+                    <div class="col-6"><span class="profile-header">NAME:</span></div>
+                    <div class="col-6 user-data"><span class="profile-data">{{ user_data.user.first_name }}</span></div>
+                {% endif %}
+            </div><!-- row -->
+            <div class="row">
+
+                {% if request.user.id is user_data.user.id %}
+                    </div><!-- row -->
+                    <div class="col-md-2 edit-logo"><span class="glyphicon glyphicon-pencil"></span></div>
+                    <div class="col-md-2 col-md-offset-5"><a href="{% url 'account_app:delete_user' %}"
+                                                             class="btn btn-danger">DELETE USER</a></div>
+                {% endif %}
+        </div>
+    </div>
+{% endblock %}
