@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c4edddc-3e92-4392-b5f4-58482fb98fe0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quizz_app/scripts/csv_test_generator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/model/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/model/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/templates/quizz_app/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/templates/quizz_app/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/templates/quizz_app/test_selection.html" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/templates/quizz_app/test_selection.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -69,9 +65,22 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="10" selection-start-column="10" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/quizz_app/scripts/csv_test_generator.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="71" selection-start-line="1" selection-start-column="71" selection-end-line="1" selection-end-column="71" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -79,18 +88,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-217">
               <caret line="26" column="38" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/quizz_app/forms.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="8" column="72" selection-start-line="8" selection-start-column="72" selection-end-line="8" selection-end-column="72" />
-              <folding>
-                <element signature="e#0#24#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -129,6 +126,7 @@
       <list>
         <option value="HTML File" />
         <option value="CSS File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -202,6 +200,8 @@
         <option value="$PROJECT_DIR$/quizz_app/templates/quizz_app/home.html" />
         <option value="$PROJECT_DIR$/quizz_app/model/test.py" />
         <option value="$PROJECT_DIR$/quizz_app/views.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/quizz_app/scripts/csv_test_generator.py" />
       </list>
     </option>
   </component>
@@ -264,49 +264,6 @@
               <item name="quizz" type="b2602c69:ProjectViewProjectNode" />
               <item name="quizz" type="462c0819:PsiDirectoryNode" />
               <item name="quizz_app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="quizz" type="b2602c69:ProjectViewProjectNode" />
-              <item name="quizz" type="462c0819:PsiDirectoryNode" />
-              <item name="quizz_app" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="quizz" type="b2602c69:ProjectViewProjectNode" />
-              <item name="quizz" type="462c0819:PsiDirectoryNode" />
-              <item name="quizz_app" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="quizz" type="b2602c69:ProjectViewProjectNode" />
-              <item name="quizz" type="462c0819:PsiDirectoryNode" />
-              <item name="quizz_app" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="quizz_app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="quizz" type="b2602c69:ProjectViewProjectNode" />
-              <item name="quizz" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="quizz" type="b2602c69:ProjectViewProjectNode" />
-              <item name="quizz" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="quizz" type="b2602c69:ProjectViewProjectNode" />
-              <item name="quizz" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="quizz" type="b2602c69:ProjectViewProjectNode" />
-              <item name="quizz" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-              <item name="svgs" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="quizz" type="b2602c69:ProjectViewProjectNode" />
@@ -395,12 +352,12 @@
       <workItem from="1558957424337" duration="18793000" />
       <workItem from="1559044897345" duration="21448000" />
       <workItem from="1559124662411" duration="18766000" />
-      <workItem from="1559166191790" duration="5069000" />
+      <workItem from="1559166191790" duration="5244000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64076000" />
+    <option name="totallyTimeSpent" value="64251000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -413,14 +370,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11353944" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32917964" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.33125648" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.33125648" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997923" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -740,7 +696,18 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="10" selection-start-column="10" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quizz_app/scripts/csv_test_generator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="71" selection-start-line="1" selection-start-column="71" selection-end-line="1" selection-end-column="71" />
+        </state>
+      </provider>
     </entry>
   </component>
 </project>
