@@ -6,9 +6,10 @@ from django.shortcuts import redirect
 import json
 import csv
 
-from .model.test import Test, TestUser
+from .model.test import Test, TestUser, CATEGORY_CHOICES
 from .model.question import Question, QuestionUser
 from .model.answer import Answer
+
 
 from .forms import ImportForm
 from . import forms
@@ -16,18 +17,62 @@ from . import forms
 
 @login_required
 def index(request):
-    ''' main view'''
+    """
+    main view
+    """
     import_form = forms.ImportForm()
-    if request.method == 'POST' :
+    if request.method == 'POST':
         import_form = forms.ImportForm(request.POST)
         file = request.FILES['file']
-        if (file.name).endswith('.csv'):
-            decoded_file = file.read().decode('utf-8').splitlines()
+        if file.name.endswith('.csv'):
+            decoded_file = file.read().decode('ISO-8859-1').splitlines()
             reader = csv.reader(decoded_file)
             try:
                 the_test = list(reader)
                 print(the_test)
-                print("..")
+                print(".s.")
+                categories = dict(CATEGORY_CHOICES)
+                print(categories)
+                print("====")
+                print(the_test[0][0])
+
+                if the_test[0][0] in categories.keys():
+                    n_category = categories[the_test[0][0]]
+                else:
+                    n_category = 0
+
+                if len(the_test[0]) >= 3:
+                    print("DESCRIPTION")
+                    n_desc = the_test[0][2]
+                else:
+                    print(" NO DESCRIPTION")
+                    n_desc = ""
+
+                n_test = Test.objects.create(test_name=the_test[0][1],
+                                           test_category=n_category,
+                                           test_description=n_desc)
+                n_test.save()
+                print("==============o==================")
+                for question in range(1, len(the_test)):
+                    print(question)
+                    n_question = Question.objects.create(question_text=the_test[question][0],
+                                                         question_test=n_test)
+                    print("INSERTED QUESTION", )
+                    for answer in range(1, len(the_test[question])):
+                        print("lineas")
+                        print(the_test[question][answer])
+                        if the_test[question][answer] != '0' and the_test[question][answer] != '1' and the_test[question][answer] != "":
+                            print("ALGO VA MAL")
+                            print("===>",the_test[question][answer] )
+                            n_answer = Answer.objects.create(answer_text=the_test[question][answer],
+                                                             correct_answer=the_test[question][answer+1],
+                                                             answer_question=n_question)
+                            n_answer.save()
+                            print("SAVED")
+                        else:
+                            print("not=0")
+                            continue
+                print("==============p==================")
             except:
                 pass
         return redirect('index')

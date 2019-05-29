@@ -6,24 +6,19 @@
 {% endblock head_css_page %}
 {% block title %}TEST_SELECTION{% endblock title %}
 {% block content %}
-
     <div class="jumbotron text-center">
         {% if warning %}
             <div class="alert alert-warning" role="alert">
                 {{ warning }}
             </div>
         {% endif %}
-
         <h2>TEST:{{ test.test_name |default:"1" }}</h2>
-        <h3>PREGUNTAS DISPONIBLES:{{ total_questions }}</h3>
-
+        <h3>AVAILABLE QUESTIONS:{{ total_questions }}</h3>
     </div>
-
 
     <div class="container-fluid ">
         <div class="container login-container col-md-6 col-md-offset-3">
             <div class="row">
-
                 <div class="col-md-10 col-md-offset-1">
                     <form action="{% url 'quizz_app:test_selection' test.id %}" method="post">
                         {% csrf_token %}
@@ -31,7 +26,6 @@
                             <label class="control-label" for="num_questions">Number of questions:</label>
                             <input class="form-control"  type="number" name="num_questions" value="{{ total_questions }}" min="1" max="{{ total_questions }}" >
                         </div>
-
                         <div class="text-center">
                             <input class="btn btn-primary" type="submit" name="" value="START">
                         </div>
@@ -40,16 +34,11 @@
             </div>
         </div>
     </div>
-
     <script>
         $(document).ready(function () {
 
-
         });
-
     </script>
-
     {% block footer_javascript_page %}
-
     {% endblock footer_javascript_page %}
 {% endblock %}

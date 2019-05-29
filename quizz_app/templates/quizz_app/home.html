@@ -24,11 +24,8 @@
                             <div class="container registration-container">
                                 <h2>IMPORT TEST:</h2>
                                 <hr/>
-
-
-                                <span>     The file must be CSV. Correct anwer is 1 and wrong is 0.It must follow this structure:</span>
+                                <span>The file must be CSV. Correct anwer is 1 and wrong is 0.It must follow this structure:</span>
                                 <table class="table table-striped">
-
                                     <tbody>
                                     <tr>
                                         <td>Category</td>
@@ -59,8 +56,6 @@
                                     </tr>
                                     </tbody>
                                 </table>
-
-
                                 <form method="post" name="import_Form" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     {% for field in import_form %}

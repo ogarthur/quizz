@@ -4,12 +4,13 @@ from django.db import models
 from django.contrib.auth.models import User
 
 CATEGORY_CHOICES = (
-    ('BLOQUE1', '1'),
-    ('BLOQUE2', '2'),
-    ('BLOQUE3', '3'),
-    ('BLOQUE4', '4'),
-    ('BLOQUE5', '5'),
-    ('EXAMEN', '6'),
+    ('ALL' , 0),
+    ('BLOQUE1', 1),
+    ('BLOQUE2', 2),
+    ('BLOQUE3', 3),
+    ('BLOQUE4', 4),
+    ('BLOQUE5', 5),
+    ('EXAMEN', 6),
 )
 
 
