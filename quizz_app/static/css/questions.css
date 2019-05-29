@@ -71,44 +71,6 @@
     background: #dcedf6;
 }
 
-.questionsRow {
-    background: #dee3e6;
-    margin: 0 -20px;
-    padding: 10px 20px;
-    border-radius: 0 0 3px 3px;
-}
-
-.questionsRow span {
-    float: right;
-    display: inline-block;
-    line-height: 30px;
-    border: solid 1px #aeb9c0;
-    padding: 0 10px;
-    background: #FFF;
-    color: #007fbe;
-}
-
-.quizResult {
-    margin: 0 0 10px 0;
-    border-bottom: solid 1px #e3e3e3;
-    padding-bottom: 6px;
-    font-size: 15px;
-    line-height: 28px;
-}
-
-.quizResult li {
-    margin: 0 0 6px;
-    border: solid 1px #e3e3e3;
-    padding: 5px 20px;
-    border-radius: 5px;
-    position: relative;
-}
-
-.quizResult h2 {
-    font-size: 22px;
-    margin: 0;
-    font-weight: 300;
-}
 
 .wrong-answer {
     background-color: #ff2c2c;
@@ -123,39 +85,7 @@
     border-color: #e2f8cf;
 }
 
-.quizResult .ansStute {
-    position: absolute;
-    left: 0;
-    top: -1px;
-    bottom: -1px;
-    color: #FFF;
-    font-weight: 500;
-    padding: 0;
-    width: 6px;
-    border-radius: 5px 0 0 5px;
-}
 
-.quizResult li.resultAnsIswrong .ansStute {
-    background: #aa0101;
-}
-
-.quizResult li.resultAnsIscorrect .ansStute {
-    background: #00a637;
-}
-
-.quizScore {
-    background: #e8f7ff;
-    border: solid 1px #d8eefa;
-    padding: 10px 20px;
-    border-radius: 5px;
-}
-
-.quizScore a.button {
-    float: right;
-}
-
-.yourScore {
-    font-size: 18px;
-    line-height: 30px;
-    color: #0e5e88;
+.add-test{
+    display: none;
 }

@@ -3,40 +3,100 @@
 {% block head_css_page %}
     <link href="{% static 'css/login.css' %}" rel="stylesheet" media="screen">
     <link href="{% static 'css/coffee.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'css/questions.css' %}" rel="stylesheet" media="screen">
 {% endblock head_css_page %}
 {% block title %}HOME{% endblock title %}
 {% block content %}
-
-        {% if warning %}
-
-    <div class="jumbotron text-center">
+    {% if warning %}
+        <div class="jumbotron text-center">
             <div class="alert alert-warning" role="alert">
                 {{ warning }}
             </div>
-                </div>
-        {% endif %}
-
-
-
-
+        </div>
+    {% endif %}
     <div class="test-container">
-    <div class="row">
-        <div  class=" col-12 col-offset-3 mt-3"  style="text-align:center;">
-        <button class=" end btn-warning btn " >ADD TEST</button>
+        <div class="row">
+            <div class=" col-12 col-offset-3 mt-3" style="text-align:center;">
+                <button class=" end btn-warning btn " onclick="show_add_test()">ADD TEST</button>
+                <div class="add-test">
+                    <div class="container-fluid bg-grey text-center" id="divImportar">
+                        <div class="row">
+                            <div class="container registration-container">
+                                <h2>IMPORT TEST:</h2>
+                                <hr/>
+
+
+                                <span>     The file must be CSV. Correct anwer is 1 and wrong is 0.It must follow this structure:</span>
+                                <table class="table table-striped">
+
+                                    <tbody>
+                                    <tr>
+                                        <td>Category</td>
+                                        <td>Test name</td>
+                                        <td> </td>
+                                        <td> </td>
+                                         <td> </td>
+                                        <td> </td>
+                                        <td> </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Question</td>
+                                        <td>answer_1</td>
+                                        <td>is_answer_1_correct</td>
+                                        <td>answer_2</td>
+                                        <td>is_answer_2_correct</td>
+                                        <td> </td>
+                                        <td> </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Question2</td>
+                                        <td>answer_1</td>
+                                        <td>is_answer_1_correct</td>
+                                        <td>answer_2</td>
+                                        <td>is_answer_2_correct</td>
+                                        <td>answer_3</td>
+                                        <td>is_answer_3_correct</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+
+                                <form method="post" name="import_Form" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {% for field in import_form %}
+                                        <div class="form-group">
+                                            <label class="control-label"
+                                                   for="id_{{ field.name }}">{{ field.label }}</label>
+                                            <br>
+                                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                                            {{ field }}
+                                            {% if field.help_text %}
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                    <input type="submit" class="btn btn-primary" value="IMPORT TEST"
+                                           name="importtest"></input>
+                                </form>
+                            </div>
+                        </div><!-- row -->
+                    </div><!-- container-->
+                </div>
             </div>
-    </div>
-
-
+        </div>
     </div>
     <script>
+        function show_add_test() {
+            $('.add-test').toggle();
+        }
+    </script>
+    <script>
         $(document).ready(function () {
-            let test_json = {{ available_tests|safe}};
 
+            let test_json = {{ available_tests|safe}};
             let html_category_2 = " </div>\
                 </a>\
             </div>\
             </div>";
-
             for (category in test_json) {
                 let html_category_1 = "<div class='card-container row'>\<" +
                     "div class='card col-12 col-md-4 col-lg-3 mt-4 mx-4 ' id='" + category + "'>\
@@ -44,27 +104,22 @@
                                             <div class='card-block' style='background-color:var(--sandy-brown);'>";
                 let title = "<h4 class='card-title >" + category + "</h4>";
                 let desc = "<p class='card-text'>" + category + "</p>";
-
                 $(".test-container").append(html_category_1 + title + desc + html_category_2)
-
                 for (test in test_json[category]) {
                     let test_name = test_json[category][test]['test_name']
                     let test_des = test_json[category][test]['test_description']
                     let titleT = "<h4 class='card-title '>" + test_name + "</h4>";
                     let descT = "<p class='card-text'>" + test_des + "</p>";
                     let test_id = test_json[category][test]['id']
-
-                    let test_url = "{% url 'quizz_app:test_selection' 0 %}";
-                     test_url =test_url.replace('0',test_id)
-                    console.log(test_url )
                     let sel = ""
+                    let test_url = "{% url 'quizz_app:test_selection' 0 %}";
+                    test_url = test_url.replace('0', test_id)
 
-                    if (test_json[category][test]['test_tries']>0){
-                        sel="choice-selected"
+                    if (test_json[category][test]['test_tries'] > 0) {
+                        sel = "choice-selected"
                     }
-
-                    let html_test_1 = "<div class='card col-12 col-md-4 col-lg-3 mt-4 mx-5 animate-left " + category +" "+ sel +"' style='display:none' id='test_" + test_json[category][test]['id'] + "' >\
-                                    <a href='"+test_url + "'>\
+                    let html_test_1 = "<div class='card col-12 col-md-4 col-lg-3 mt-4 mx-5 animate-left " + category + " " + sel + "' style='display:none' id='test_" + test_json[category][test]['id'] + "' >\
+                                    <a href='" + test_url + "'>\
                                             <div class='card-block' style='background-color:#E9C46A;'>";
                     let html_test_2 = " </div>\
                         <div class='card-footer'>\
@@ -78,14 +133,10 @@
             }
             $(".card").click(function () {
                 let bloque = $(this).attr('id')
-                console.log($("." + bloque).html())
                 $("." + bloque).toggle();
             });
         });
-
     </script>
-
     {% block footer_javascript_page %}
-
     {% endblock footer_javascript_page %}
 {% endblock %}

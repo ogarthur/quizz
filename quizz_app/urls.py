@@ -8,4 +8,5 @@ app_name = 'quizz_app'
 
 urlpatterns = [
     path('test_selection/<int:test_id>', views.test_selection, name='test_selection'),
+    path('update_results/<int:test_id>', views.update_results, name='update_results'),
 ]

@@ -19,7 +19,7 @@ from django.urls import path, include
 from account_app import views as aviews
 from quizz_app import views as qviews
 urlpatterns = [
-    path('', qviews.index,name='index'),
+    path('', qviews.index, name='index'),
     path('ba_na_na/', admin.site.urls),
     path('logout/', aviews.user_logout, name='logout'),
     path('account_app/', include('account_app.urls')),

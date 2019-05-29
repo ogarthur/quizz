@@ -4,109 +4,112 @@
     <link href="{% static 'css/login.css' %}" rel="stylesheet" media="screen">
     <link href="{% static 'css/coffee.css' %}" rel="stylesheet" media="screen">
     <link href="{% static 'css/questions.css' %}" rel="stylesheet" media="screen">
-     <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" media="screen">
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-
-
+    <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 {% endblock head_css_page %}
 {% block title %}TEST_PAGE{% endblock title %}
 {% block content %}
-
     <div class="jumbotron text-center">
         {% if warning %}
             <div class="alert alert-warning" role="alert">
                 {{ warning }}
             </div>
         {% endif %}
-
         <h2>TEST:{{ test.test_name |default:"1" }}</h2>
-        <h3>PREGUNTAS:{{ num_questions }}</h3>
-        <h2 style="display:none;color:red;">RESULTADO:<span id="showResultado"></span></h2>
+        <h3>NUMBER OF QUESTIONS:{{ num_questions }}</h3>
+        <h2 style="display:none;color:red;">RESULT:<span id="showResultado"></span></h2>
         <h3>
             <div id="basicUsage">00:00:00</div>
         </h3>
     </div>
-
-
     <div class="container-fluid ">
-
     {% for key, question in full_test.items %}
-        <div class="questionsBox mt-3" id="question_{{key}}">
-            <div class="questions" >{{ forloop.counter }}) {{ question.question }}</div>
-
+        <div class="questionsBox mt-3" id="question_{{ key }}">
+            <div class="questions">{{ forloop.counter }}) {{ question.question }}</div>
             <ul class="answerList">
                 {% for num, answer in question.answers.items %}
-
                     <li>
                         <label>
-                            <input type="radio" class="answerGroup" name="answer_{{key}}" value="{{ num }}" id="answer_{{ num }}"> {{ answer}}
+                            <input type="radio" class="answerGroup" name="answer_{{ key }}" value="{{ num }}"
+                                   id="answer_{{ num }}"> {{ answer }}
                         </label>
                     </li>
-
                 {% endfor %}
             </ul>
         </div>
-
     {% endfor %}
-    <div class="row "  >
+    <div class="row ">
     <div class="end col-12 col-offset-3" style="text-align:center;">
-        <button type="button" class="btn btn-success" onclick="check_results()">CHECK RESULTS</button>
+    <button type="button" class="btn btn-success" onclick="check_results()">CHECK RESULTS</button>
     <div>
     </div>
     <script src="{% static 'js/easytimer.min.js' %}"></script>
-<script>
-    $(".answerGroup").click(function(){
-                console.log("S")
-                $(this).parent().parent().parent().find('.selected').removeClass('selected')
-                $(this).addClass("selected");
-
-
-        });</script>
+    <script>
+        $(".answerGroup").click(function () {
+            $(this).parent().parent().parent().find('.selected').removeClass('selected')
+            $(this).addClass("selected");
+        });
+    </script>
     <script>
         $(document).ready(function () {
-
             var timer = new easytimer.Timer();
             timer.start();
             timer.addEventListener('secondsUpdated', function (e) {
                 $('#basicUsage').html(timer.getTimeValues().toString());
             });
-
         });
-        function check_results(){
+
+        function check_results() {
+
             let cont = {{  num_questions}};
-            let correct ="";
+            let correct = "";
             let id = ""
-            let json_result= {{ result_list |safe}};
+            let json_result = {{ result_list |safe}};
+            let results = {}
             $(".correct-answer").removeClass('correct-answer');
             $(".wrong-answer").removeClass('wrong-answer');
             $(".wrong-answer-box").removeClass("wrong-answer-box");
 
-            $( ".questionsBox" ).each(function( index ) {
-                id = ($(this).attr('id')).replace("question_","")
-
+            $(".questionsBox").each(function (index) {
+                id = ($(this).attr('id')).replace("question_", "")
                 correct = json_result[id]
                 choice = parseInt($(this).find('.selected').val())
+                $(this).find("#answer_" + correct).parent().addClass("correct-answer")
+                if (correct.indexOf(choice) < 0) {
 
-                $(this).find("#answer_"+correct).parent().addClass("correct-answer")
-                if (correct !== choice){
+                    results[id] = 0
                     $(this).addClass("wrong-answer-box")
-                    $(this).find("#answer_"+choice).parent().addClass("wrong-answer");
+                    $(this).find("#answer_" + choice).parent().addClass("wrong-answer");
                     cont--;
-                    $(this).find('.questions').html('<i class="far fa-times-circle" style="color:red"></i>'+ $(this).find('.questions').text())
-                }else{
-                    $(this).find('.questions').html('<i class="fas fa-check" style="color:green"></i>'+ $(this).find('.questions').text())
+                    $(this).find('.questions').html('<i class="far fa-times-circle" style="color:red"></i>' + $(this).find('.questions').text())
+                } else {
+                    results[id] = 1
+                    $(this).find('.questions').html('<i class="fas fa-check" style="color:green"></i>' + $(this).find('.questions').text())
                 }
-
             });
-             $("#showResultado").text(cont+"/"+{{ num_questions }});
-                   $("#showResultado").parent().show()
-                alert("RESULTADO: \n"+cont+"/"+{{ num_questions }})
 
-        }
+            let resultado = (cont / {{ num_questions }}) * 100
+            $("#showResultado").text(cont + "/" + {{ num_questions }} +"(" + resultado + "%)");
+            $("#showResultado").parent().show()
+            json_result = JSON.stringify(results)
+            console.log(json_result)
+            var token = '{{csrf_token}}';
+            $.ajax({
+                type: 'POST',
+                headers: {"X-CSRFToken": token},
+                url: "{% url 'quizz_app:update_results' test.id%}",
+                dataType: 'json',
+
+                data: {
+                    'grade': resultado,
+                    'results': json_result,
+                },
+                success: function (result) {
+                }
+            });
+        };
     </script>
-
     {% block footer_javascript_page %}
-
     {% endblock footer_javascript_page %}
 {% endblock %}
