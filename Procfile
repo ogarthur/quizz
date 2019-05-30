@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn coffeeorder.wsgi --log-file -
+web: gunicorn quizz.wsgi --log-file -
