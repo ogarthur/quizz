@@ -14,10 +14,10 @@ import os
 import django_heroku
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-TEMPLATE_DIR = os.path.join(BASE_DIR, '../../templates')
-STATIC_DIR = os.path.join(BASE_DIR, '../../static')
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-ACCOUNT_STATIC_DIR = os.path.join(BASE_DIR, 'account_app/../../account_app/static')
+ACCOUNT_STATIC_DIR = os.path.join(BASE_DIR, 'account_app/static')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
