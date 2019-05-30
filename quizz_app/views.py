@@ -53,25 +53,32 @@ def index(request):
                                            test_description=n_desc)
                 n_test.save()
                 print("==============o==================")
+                bulk_questions = []
+                bulk_answers = []
                 for question in range(1, len(the_test)):
                     print(question)
-                    n_question = Question.objects.create(question_text=the_test[question][0],
-                                                         question_test=n_test)
+                    n_question = Question()
+                    n_question.question_text = the_test[question][0]
+                    n_question.question_test = n_test
+                    bulk_questions.append(n_question)
+                Question.objects.bulk_create(bulk_questions)
+                new_questions = Question.objects.filter(question_test=n_test)
+                n_q = -1
+                for question in range(1, len(the_test)):
+                    n_q+=1
                     print("INSERTED QUESTION", )
                     for answer in range(1, len(the_test[question])):
-                        print("lineas")
-                        print(the_test[question][answer])
+
                         if the_test[question][answer] != '0' and the_test[question][answer] != '1' and the_test[question][answer] != "":
-                            print("ALGO VA MAL")
-                            print("===>",the_test[question][answer] )
-                            n_answer = Answer.objects.create(answer_text=the_test[question][answer],
-                                                             correct_answer=the_test[question][answer+1],
-                                                             answer_question=n_question)
-                            n_answer.save()
-                            print("SAVED")
+                            n_answer = Answer()
+                            n_answer.answer_text = the_test[question][answer]
+                            n_answer.correct_answer = the_test[question][answer+1]
+                            n_answer.answer_question = new_questions[n_q]
+                            bulk_answers.append(n_answer)
+
                         else:
-                            print("not=0")
                             continue
+                Answer.objects.bulk_create(bulk_answers)
                 print("==============p==================")
             except:
                 pass
@@ -91,10 +98,7 @@ def index(request):
                 else:
                     ordered_tests[test['test_category']] = []
                     ordered_tests[test['test_category']].append(test)
-
             json_available_tests = json.dumps(ordered_tests)
-
-            #available_tests = serialize('json', Test.objects.all())
 
         except Test.DoesNotExist:
             print("NO TESTS")

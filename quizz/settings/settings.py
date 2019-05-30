@@ -11,22 +11,20 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-
+import django_heroku
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
+TEMPLATE_DIR = os.path.join(BASE_DIR, '../../templates')
+STATIC_DIR = os.path.join(BASE_DIR, '../../static')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-ACCOUNT_STATIC_DIR = os.path.join(BASE_DIR, 'account_app/static')
+ACCOUNT_STATIC_DIR = os.path.join(BASE_DIR, 'account_app/../../account_app/static')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ml^wdh7!=85c%)zbh0spu&+p!10wcg%9ravca+#-8sh8^wc=fo'
-
+SECRET_KEY = '*zah4_+4+0@uhn60h9krn1!on^_knex-rh=z*)nk4_^y=2dy*b'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
 
 ALLOWED_HOSTS = []
 
@@ -82,7 +80,7 @@ WSGI_APPLICATION = 'quizz.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, '../../db.sqlite3'),
     }
 }
 
@@ -122,7 +120,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-
+django_heroku.settings(locals())
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     STATIC_DIR,

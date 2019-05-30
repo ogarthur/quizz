@@ -9,7 +9,7 @@ CATEGORY_CHOICES = (
     ('BLOQUE2', 2),
     ('BLOQUE3', 3),
     ('BLOQUE4', 4),
-    ('BLOQUE5', 5),
+    ('CONSTITUCION', 5),
     ('EXAMEN', 6),
 )
 
