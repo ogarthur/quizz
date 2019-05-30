@@ -1,2 +1,1 @@
-release: python manage.py migrate
-web: gunicorn quizz.wsgi --log-file -
+web: gunicorn app:app --log-file=-
