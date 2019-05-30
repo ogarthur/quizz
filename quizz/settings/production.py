@@ -14,7 +14,7 @@ DATABASES['default'].update(db_from_env)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
-ALLOWED_HOSTS = ['*',]
+ALLOWED_HOSTS = ['*','https://opquizz-dev.herokuapp.com','https://opquizz.herokuapp.com']
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 try:
