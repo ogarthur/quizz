@@ -97,6 +97,7 @@ def index(request):
                     ordered_tests[test['test_category']].append(test)
                 else:
                     ordered_tests[test['test_category']] = []
+                    print("this", test)
                     ordered_tests[test['test_category']].append(test)
             json_available_tests = json.dumps(ordered_tests)
 
@@ -164,35 +165,39 @@ def update_results(request, test_id):
     if request.method == "POST":
 
         grade = json.loads(request.POST.get('grade', None))
-        print(grade)
         results = json.loads(request.POST.get('results', None))
-        print(results['1'])
 
         te = Test.objects.get(id=test_id)
         try:
             test = TestUser.objects.get(test_test_id=test_id, test_user=request.user)
 
         except TestUser.DoesNotExist:
-           test = TestUser.objects.create(test_test=te, test_user=request.user)
+            test = TestUser.objects.create(test_test=te, test_user=request.user)
         if int(grade) > 50:
             test.test_ok += 1
         else:
             test.test_fails += 1
         test.save()
-
+        print(results)
+        '''
         questions = Question.objects.filter(question_test=te)
+       
         for question in questions:
             try:
                 que = QuestionUser.objects.get(question_question=question, question_user=request.user)
             except QuestionUser.DoesNotExist:
                 que = QuestionUser.objects.create(question_question=question, question_user=request.user)
-
-            if results[str(question.id)] == 0:
-                que.question_fails += 1
-                print("FAIL")
+            print(str(question.id))
+            if str(question.id) not in results:
+                continue
             else:
-                que.question_ok += 1
-            que.save()
+                if results[str(question.id)] == 0:
+                    que.question_fails += 1
+                    print("FAIL")
+                else:
+                    que.question_ok += 1
+                que.save()
+        '''
         return HttpResponse()
     else:
         return  HttpResponse()

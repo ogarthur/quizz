@@ -16,4 +16,4 @@ class Answer(models.Model):
                                         on_delete=models.CASCADE,
                                         related_name='answer_question')
     def __str__(self):
-        return "{}=> {}".format(self.answer_question.question_text, self.answer_text)
+        return "{}=> {}".format(self.answer_question.id, self.answer_text)

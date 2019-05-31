@@ -1,8 +1,13 @@
 /*****************CARDS*************************/
+.print-data{
+    color:#ff0707;
+    font-weight: bold;
+}
 .card {
     cursor: pointer;
-    min-height: 12em;
+
     min-width: 12em;
+    min-height: 10em;
     font-size: 1em;
     overflow: hidden;
     padding: 0;
@@ -62,7 +67,7 @@
     padding: .75em 1em;
     color: rgba(0, 0, 0, .4);
     border-top: 1px solid rgba(0, 0, 0, .05) !important;
-    background: #fff;
+
 }
 
 .card-title {

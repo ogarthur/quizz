@@ -88,15 +88,16 @@
         $(document).ready(function () {
 
             let test_json = {{ available_tests|safe}};
+             console.log(test_json)
             let html_category_2 = " </div>\
                 </a>\
             </div>\
             </div>";
             for (category in test_json) {
                 let html_category_1 = "<div class='card-container row'>\<" +
-                    "div class='card col-12 col-md-4 col-lg-3 mt-4 mx-4 ' id='" + category + "'>\
+                    "div class='card col-12 col-md-4 col-lg-3 mt-4 mx-1 col-md-offset-1' id='" + category + "' style='background-color:var(--sandy-brown);'>\
                                     <a  >\
-                                            <div class='card-block' style='background-color:var(--sandy-brown);'>";
+                                            <div class='card-block' >";
                 let title = "<h4 class='card-title >" + category + "</h4>";
                 let desc = "<p class='card-text'>" + category + "</p>";
                 $(".test-container").append(html_category_1 + title + desc + html_category_2)
@@ -113,13 +114,10 @@
                     if (test_json[category][test]['test_tries'] > 0) {
                         sel = "choice-selected"
                     }
-                    let html_test_1 = "<div class='card col-12 col-md-4 col-lg-3 mt-4 mx-5 animate-left " + category + " " + sel + "' style='display:none' id='test_" + test_json[category][test]['id'] + "' >\
+                    let html_test_1 = "<div class='card col-12 col-md-4 col-lg-3 mt-4 mx-1 col-md-offset-1 animate-left " + category + " " + sel + "' style='background-color:#E9C46A;display:none' id='test_" + test_json[category][test]['id'] + "' >\
                                     <a href='" + test_url + "'>\
-                                            <div class='card-block' style='background-color:#E9C46A;'>";
+                                            <div class='card-block' >";
                     let html_test_2 = " </div>\
-                        <div class='card-footer'>\
-                            <img class='card-logo' src='/static/images/svgs/help.svg'>\
-                        </div>\
                             </a>\
                         </div>";
                     let full_test = html_test_1 + titleT + descT + html_test_2;

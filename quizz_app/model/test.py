@@ -4,13 +4,13 @@ from django.db import models
 from django.contrib.auth.models import User
 
 CATEGORY_CHOICES = (
-    ('ALL' , 0),
-    ('BLOQUE1', 1),
-    ('BLOQUE2', 2),
-    ('BLOQUE3', 3),
-    ('BLOQUE4', 4),
-    ('CONSTITUCION', 5),
-    ('EXAMEN', 6),
+    ('ALL' , 'ALL'),
+    ('BLOQUE1', 'BLOQUE1'),
+    ('BLOQUE2', 'BLOQUE2'),
+    ('BLOQUE3', 'BLOQUE3'),
+    ('BLOQUE4', 'BLOQUE4'),
+    ('CONSTITUCION', 'CONSTITUCION'),
+    ('EXAMEN', 'EXAMEN'),
 )
 
 
@@ -18,7 +18,7 @@ class Test(models.Model):
     class Meta:
         pass
 
-    test_category = models.CharField(choices=CATEGORY_CHOICES, max_length=10)
+    test_category = models.CharField(choices=CATEGORY_CHOICES, max_length=150)
     test_name = models.TextField()
     test_description = models.TextField(blank=True)
 
