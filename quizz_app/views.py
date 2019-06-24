@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 import json
 import csv
 
-from .model.test import Test, TestUser, CATEGORY_CHOICES
+from .model.test import Test, TestUser, CATEGORY_CHOICES, CategoryTest
 from .model.question import Question, QuestionUser
 from .model.answer import Answer
 
@@ -25,21 +25,12 @@ def index(request):
         import_form = forms.ImportForm(request.POST)
         file = request.FILES['file']
         if file.name.endswith('.csv'):
-            decoded_file = file.read().decode('ISO-8859-1').splitlines()
+            #decoded_file = file.read().decode('utf-8').splitlines().encode('UTF-8')
+            decoded_file = file.read().decode('UTF-8').splitlines()
+
             reader = csv.reader(decoded_file)
             try:
                 the_test = list(reader)
-                print(the_test)
-                print(".s.")
-                categories = dict(CATEGORY_CHOICES)
-                print(categories)
-                print("====")
-                print(the_test[0][0])
-
-                if the_test[0][0] in categories.keys():
-                    n_category = categories[the_test[0][0]]
-                else:
-                    n_category = 0
 
                 if len(the_test[0]) >= 3:
                     print("DESCRIPTION")
@@ -48,15 +39,22 @@ def index(request):
                     print(" NO DESCRIPTION")
                     n_desc = ""
 
+                is_random = False
+                if len(the_test[0]) >= 4:
+                    if the_test[0][3] is "1":
+                        is_random = True
+
                 n_test = Test.objects.create(test_name=the_test[0][1],
-                                           test_category=n_category,
-                                           test_description=n_desc)
+                                             test_category=the_test[0][0],
+                                             test_description=n_desc,
+                                             test_randomizable=is_random )
                 n_test.save()
-                print("==============o==================")
+
                 bulk_questions = []
                 bulk_answers = []
                 for question in range(1, len(the_test)):
                     print(question)
+
                     n_question = Question()
                     n_question.question_text = the_test[question][0]
                     n_question.question_test = n_test
@@ -65,11 +63,12 @@ def index(request):
                 new_questions = Question.objects.filter(question_test=n_test)
                 n_q = -1
                 for question in range(1, len(the_test)):
-                    n_q+=1
+                    n_q += 1
                     print("INSERTED QUESTION", )
                     for answer in range(1, len(the_test[question])):
-
+                        print("1=========>", the_test[question][answer])
                         if the_test[question][answer] != '0' and the_test[question][answer] != '1' and the_test[question][answer] != "":
+                            print("==========>",the_test[question][answer] )
                             n_answer = Answer()
                             n_answer.answer_text = the_test[question][answer]
                             n_answer.correct_answer = the_test[question][answer+1]
@@ -79,7 +78,6 @@ def index(request):
                         else:
                             continue
                 Answer.objects.bulk_create(bulk_answers)
-                print("==============p==================")
             except:
                 pass
         return redirect('index')
@@ -97,8 +95,10 @@ def index(request):
                     ordered_tests[test['test_category']].append(test)
                 else:
                     ordered_tests[test['test_category']] = []
-                    print("this", test)
+                    #ordered_tests[test['test_category']] = test.test_category
+
                     ordered_tests[test['test_category']].append(test)
+
             json_available_tests = json.dumps(ordered_tests)
 
         except Test.DoesNotExist:
@@ -117,35 +117,33 @@ def test_selection(request, test_id):
     try:
         test = Test.objects.get(id=test_id)
 
-
     except Test.DoesNotExist:
         test.test_name = "ERROR CARGANDO TEST"
 
     if request.method == "POST":
         max_questions = int(request.POST.get('num_questions', ''))
+        if test.test_randomizable:
+            test_questions = Question.objects.filter(question_test=test_id).values('id', 'question_text').order_by("?")[0:max_questions]
+        else:
+            test_questions = Question.objects.filter(question_test=test_id).values('id', 'question_text')[0:max_questions]
 
-        test_questions = Question.objects.filter(question_test=test_id).values('id', 'question_text').order_by("?")[0:max_questions]
         full_test = {}
         result_list = {}
         num_questions = len(test_questions)
         for question in test_questions:
             full_test[question['id']] = {'question': question['question_text'],
                                          'answers': {}}
-
-
             test_answers = Answer.objects.filter(answer_question_id=question['id']).values('id',
                                                                                            'answer_question',
                                                                                            'answer_text',
                                                                                            'correct_answer',)
             for answer in test_answers:
-
                 if answer['correct_answer']:
                     if question['id'] in result_list:
                         result_list[question['id']].append(answer['id'])
                     else:
                         result_list[question['id']] = [answer['id'],]
                 full_test[question['id']]['answers'].update({answer['id']: answer['answer_text']})
-
         result_list = json.dumps(result_list)
         return render(request, 'quizz_app/test_page.html', {'test': test,
                                                             'full_test': full_test,
@@ -166,19 +164,18 @@ def update_results(request, test_id):
 
         grade = json.loads(request.POST.get('grade', None))
         results = json.loads(request.POST.get('results', None))
-
-        te = Test.objects.get(id=test_id)
+        test = Test.objects.get(id=test_id)
         try:
-            test = TestUser.objects.get(test_test_id=test_id, test_user=request.user)
+            test_user = TestUser.objects.get(test_test_id=test_id, test_user=request.user)
 
         except TestUser.DoesNotExist:
-            test = TestUser.objects.create(test_test=te, test_user=request.user)
+            test_user = TestUser.objects.create(test_test=test, test_user=request.user)
         if int(grade) > 50:
-            test.test_ok += 1
+            test_user.test_ok += 1
         else:
-            test.test_fails += 1
-        test.save()
-        print(results)
+            test_user.test_fails += 1
+        test_user.save()
+
         '''
         questions = Question.objects.filter(question_test=te)
        

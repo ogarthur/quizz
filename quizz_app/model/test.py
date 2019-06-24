@@ -14,13 +14,22 @@ CATEGORY_CHOICES = (
 )
 
 
+class CategoryTest(models.Model):
+
+    category_name = models.CharField(max_length=150)
+
+    def __str__(self):
+        return "{}".format(self.category_name)
+
+
 class Test(models.Model):
     class Meta:
         pass
 
-    test_category = models.CharField(choices=CATEGORY_CHOICES, max_length=150)
+    test_category = models.CharField(max_length=150,default="0")
     test_name = models.TextField()
     test_description = models.TextField(blank=True)
+    test_randomizable = models.BooleanField(default=False)
 
 
 
@@ -36,7 +45,7 @@ class TestUser(models.Model):
     test_user = models.ForeignKey(User, related_name="test_user", on_delete=models.CASCADE)
 
     def  __str__(self):
-        return "{}_{}:{}".format(self.id,self.test_test_id,self.test_user_id)
+        return "{}_{}:{}".format(self.id, self.test_test_id,self.test_user_id)
 
     def test_ratio(self):
         if self.test_fails + self.test_ok > 0:
