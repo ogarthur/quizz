@@ -64,11 +64,11 @@ def index(request):
                 n_q = -1
                 for question in range(1, len(the_test)):
                     n_q += 1
-                    print("INSERTED QUESTION", )
+                    #print("INSERTED QUESTION", )
                     for answer in range(1, len(the_test[question])):
-                        print("1=========>", the_test[question][answer])
+                        #print("1    =========>", the_test[question][answer])
                         if the_test[question][answer] != '0' and the_test[question][answer] != '1' and the_test[question][answer] != "":
-                            print("==========>",the_test[question][answer] )
+                            #print("==========>", the_test[question][answer] )
                             n_answer = Answer()
                             n_answer.answer_text = the_test[question][answer]
                             n_answer.correct_answer = the_test[question][answer+1]
