@@ -2,7 +2,7 @@
 
 from django.db import models
 
-from .test import Test
+from .quiz import Quiz
 from django.contrib.auth.models import User
 
 
@@ -11,7 +11,7 @@ class Question(models.Model):
         pass
 
     question_text = models.TextField()
-    question_test = models.ForeignKey(Test, on_delete=models.CASCADE, related_name='question_test')
+    question_quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='question_quiz')
 
     def __str__(self):
         return self.question_text
@@ -19,7 +19,7 @@ class Question(models.Model):
 
 class QuestionUser(models.Model):
     question_fails = models.IntegerField(default=0)
-    question_ok = models.IntegerField(default=0)
+    question_hits = models.IntegerField(default=0)
 
     question_user = models.ForeignKey(User, related_name="question_user", on_delete=models.CASCADE)
     question_question = models.ForeignKey(Question, related_name="question_question", on_delete=models.CASCADE)
@@ -28,9 +28,9 @@ class QuestionUser(models.Model):
         return "{}_{}:{}".format(self.id, self.question_question_id, self.question_user_id)
 
     def question_ratio(self):
-        if self.question_tries > 0:
-            if self.question_ok > 0:
-                ratio = (self.question_ok / (self.question_ok + self.question_fails)) * 100
+        if self.question_fails + self.question_hits > 0:
+            if self.question_hits > 0:
+                ratio = (self.question_hits / (self.question_hits + self.question_fails)) * 100
             else:
                 ratio = 0
         else:

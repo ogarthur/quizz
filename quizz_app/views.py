@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 import json
 import csv
 
-from .model.test import Test, TestUser, CATEGORY_CHOICES, CategoryTest
+from .model.quiz import Quiz, QuizUser, CategoryQuiz
 from .model.question import Question, QuestionUser
 from .model.answer import Answer
 
@@ -30,48 +30,47 @@ def index(request):
 
             reader = csv.reader(decoded_file)
             try:
-                the_test = list(reader)
+                the_quiz = list(reader)
 
-                if len(the_test[0]) >= 3:
+                if len(the_quiz[0]) >= 3:
                     print("DESCRIPTION")
-                    n_desc = the_test[0][2]
+                    n_desc = the_quiz[0][2]
                 else:
                     print(" NO DESCRIPTION")
                     n_desc = ""
 
                 is_random = False
-                if len(the_test[0]) >= 4:
-                    if the_test[0][3] is "1":
+                if len(the_quiz[0]) >= 4:
+                    if the_quiz[0][3] == "1":
                         is_random = True
-
-                n_test = Test.objects.create(test_name=the_test[0][1],
-                                             test_category=the_test[0][0],
-                                             test_description=n_desc,
-                                             test_randomizable=is_random )
-                n_test.save()
-
+                print(is_random)
+                n_quiz = Quiz.objects.create(quiz_name=the_quiz[0][1],
+                                              quiz_category=the_quiz[0][0],
+                                              quiz_description=n_desc,
+                                              quiz_randomizable=is_random)
+                n_quiz.save()
+                print("S")
                 bulk_questions = []
                 bulk_answers = []
-                for question in range(1, len(the_test)):
+                for question in range(1, len(the_quiz)):
                     print(question)
-
                     n_question = Question()
-                    n_question.question_text = the_test[question][0]
-                    n_question.question_test = n_test
+                    n_question.question_text = the_quiz[question][0]
+                    n_question.question_quiz = n_quiz
                     bulk_questions.append(n_question)
                 Question.objects.bulk_create(bulk_questions)
-                new_questions = Question.objects.filter(question_test=n_test)
+                new_questions = Question.objects.filter(question_quiz=n_quiz)
                 n_q = -1
-                for question in range(1, len(the_test)):
+                for question in range(1, len(the_quiz)):
                     n_q += 1
-                    #print("INSERTED QUESTION", )
-                    for answer in range(1, len(the_test[question])):
-                        #print("1    =========>", the_test[question][answer])
-                        if the_test[question][answer] != '0' and the_test[question][answer] != '1' and the_test[question][answer] != "":
-                            #print("==========>", the_test[question][answer] )
+                    print("INSERTED QUESTION", )
+                    for answer in range(1, len(the_quiz[question])):
+                        print("1    =========>", the_quiz[question][answer])
+                        if the_quiz[question][answer] != '0' and the_quiz[question][answer] != '1' and the_quiz[question][answer] != "":
+                            print("==========>", the_quiz[question][answer] )
                             n_answer = Answer()
-                            n_answer.answer_text = the_test[question][answer]
-                            n_answer.correct_answer = the_test[question][answer+1]
+                            n_answer.answer_text = the_quiz[question][answer]
+                            n_answer.correct_answer = the_quiz[question][answer+1]
                             n_answer.answer_question = new_questions[n_q]
                             bulk_answers.append(n_answer)
 
@@ -84,100 +83,100 @@ def index(request):
 
     else:
         try:
-            ordered_tests = {}
-            available_tests = Test.objects.all().values('id',
-                                                        'test_category',
-                                                        'test_name',
-                                                        'test_description',).order_by('-test_name')
+            ordered_quizs = {}
+            available_quizs = Quiz.objects.all().values('id',
+                                                        'quiz_category',
+                                                        'quiz_name',
+                                                        'quiz_description', ).order_by('-quiz_name')
 
-            for test in available_tests:
-                if test['test_category'] in ordered_tests:
-                    ordered_tests[test['test_category']].append(test)
+            for quiz in available_quizs:
+                if quiz['quiz_category'] in ordered_quizs:
+                    ordered_quizs[quiz['quiz_category']].append(quiz)
                 else:
-                    ordered_tests[test['test_category']] = []
-                    #ordered_tests[test['test_category']] = test.test_category
+                    ordered_quizs[quiz['quiz_category']] = []
+                    #ordered_quizs[quiz['quiz_category']] = quiz.quiz_category
 
-                    ordered_tests[test['test_category']].append(test)
+                    ordered_quizs[quiz['quiz_category']].append(quiz)
 
-            json_available_tests = json.dumps(ordered_tests)
+            json_available_quizs = json.dumps(ordered_quizs)
 
-        except Test.DoesNotExist:
-            print("NO TESTS")
-            available_tests = {}
+        except Quiz.DoesNotExist:
+            print("NO quizS")
+            available_quizs = {}
 
         return render(request, 'quizz_app/home.html',
-                      {'available_tests': json_available_tests,
+                      {'available_quizs': json_available_quizs,
                        'import_form': import_form,
                        })
 
 
 @login_required
-def test_selection(request, test_id):
+def quiz_selection(request, quiz_id):
 
     try:
-        test = Test.objects.get(id=test_id)
+        quiz = Quiz.objects.get(id=quiz_id)
 
-    except Test.DoesNotExist:
-        test.test_name = "ERROR CARGANDO TEST"
+    except Quiz.DoesNotExist:
+        quiz.quiz_name = "ERROR CARGANDO quiz"
 
     if request.method == "POST":
         max_questions = int(request.POST.get('num_questions', ''))
-        if test.test_randomizable:
-            test_questions = Question.objects.filter(question_test=test_id).values('id', 'question_text').order_by("?")[0:max_questions]
+        if quiz.quiz_randomizable:
+            quiz_questions = Question.objects.filter(question_quiz=quiz_id).values('id', 'question_text').order_by("?")[0:max_questions]
         else:
-            test_questions = Question.objects.filter(question_test=test_id).values('id', 'question_text')[0:max_questions]
+            quiz_questions = Question.objects.filter(question_quiz=quiz_id).values('id', 'question_text')[0:max_questions]
 
-        full_test = {}
+        full_quiz = {}
         result_list = {}
-        num_questions = len(test_questions)
-        for question in test_questions:
-            full_test[question['id']] = {'question': question['question_text'],
+        num_questions = len(quiz_questions)
+        for question in quiz_questions:
+            full_quiz[question['id']] = {'question': question['question_text'],
                                          'answers': {}}
-            test_answers = Answer.objects.filter(answer_question_id=question['id']).values('id',
+            quiz_answers = Answer.objects.filter(answer_question_id=question['id']).values('id',
                                                                                            'answer_question',
                                                                                            'answer_text',
                                                                                            'correct_answer',)
-            for answer in test_answers:
+            for answer in quiz_answers:
                 if answer['correct_answer']:
                     if question['id'] in result_list:
                         result_list[question['id']].append(answer['id'])
                     else:
                         result_list[question['id']] = [answer['id'],]
-                full_test[question['id']]['answers'].update({answer['id']: answer['answer_text']})
+                full_quiz[question['id']]['answers'].update({answer['id']: answer['answer_text']})
         result_list = json.dumps(result_list)
-        return render(request, 'quizz_app/test_page.html', {'test': test,
-                                                            'full_test': full_test,
+        return render(request, 'quizz_app/quiz_page.html', {'quiz': quiz,
+                                                            'full_quiz': full_quiz,
                                                             'result_list': result_list,
                                                             'num_questions': num_questions,
                                                             })
     else:
-        total_questions = Question.objects.filter(question_test=test_id).values('id').count()
-        return render(request, 'quizz_app/test_selection.html', {'test': test,
+        total_questions = Question.objects.filter(question_quiz=quiz_id).values('id').count()
+        return render(request, 'quizz_app/quiz_selection.html', {'quiz': quiz,
 
                                                                  'total_questions': total_questions,
                                                                  })
 
 
 @login_required
-def update_results(request, test_id):
+def update_results(request, quiz_id):
     if request.method == "POST":
 
         grade = json.loads(request.POST.get('grade', None))
         results = json.loads(request.POST.get('results', None))
-        test = Test.objects.get(id=test_id)
+        quiz = Quiz.objects.get(id=quiz_id)
         try:
-            test_user = TestUser.objects.get(test_test_id=test_id, test_user=request.user)
+            quiz_user = QuizUser.objects.get(quiz_quiz_id=quiz_id, quiz_user=request.user)
 
-        except TestUser.DoesNotExist:
-            test_user = TestUser.objects.create(test_test=test, test_user=request.user)
+        except QuizUser.DoesNotExist:
+            quiz_user = QuizUser.objects.create(quiz_quiz=quiz, quiz_user=request.user)
         if int(grade) > 50:
-            test_user.test_ok += 1
+            quiz_user.quiz_ok += 1
         else:
-            test_user.test_fails += 1
-        test_user.save()
+            quiz_user.quiz_fails += 1
+        quiz_user.save()
 
         '''
-        questions = Question.objects.filter(question_test=te)
+        questions = Question.objects.filter(question_quiz=te)
        
         for question in questions:
             try:
@@ -201,5 +200,5 @@ def update_results(request, test_id):
 
 
 @login_required
-def import_test(request, **kwargs):
+def import_quiz(request, **kwargs):
     pass

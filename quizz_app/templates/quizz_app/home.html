@@ -14,24 +14,25 @@
             </div>
         </div>
     {% endif %}
-    <div class="test-container">
+    <div class="quiz-container">
         <div class="row">
             <div class=" col-12 col-offset-3 mt-3" style="text-align:center;">
-                <button class=" end btn-warning btn " onclick="show_add_test()">ADD TEST</button>
-                <div class="add-test">
+                <button class=" end btn-warning btn " onclick="show_add_quiz()">ADD QUIZ</button>
+                <button class=" end btn-warning btn " onclick="show_add_quiz()">CREATE QUIZ</button>
+                <div class="add-quiz">
                     <div class="container-fluid bg-grey text-center" id="divImportar">
                         <div class="row">
                             <div class="container registration-container">
-                                <h2>IMPORT TEST:</h2>
+                                <h2>IMPORT QUIZ:</h2>
                                 <hr/>
-                                <span>The file must be CSV. Correct anwer is 1 and wrong is 0.It must follow this structure:</span>
+                                <span>The file must be CSV. Correct answer is 1 and wrong is 0. It must follow this structure:</span>
                                 <table class="table table-striped">
                                     <tbody>
                                     <tr>
                                         <td>Category</td>
-                                        <td>Test name</td>
-                                        <td> </td>
-                                        <td> </td>
+                                        <td>Quiz name</td>
+                                        <td>Quiz description(OPTIONAL)</td>
+                                        <td>Randomizable(1 yes, 0 no. IF empty it won't be random) </td>
                                          <td> </td>
                                         <td> </td>
                                         <td> </td>
@@ -69,8 +70,8 @@
                                             {% endif %}
                                         </div>
                                     {% endfor %}
-                                    <input type="submit" class="btn btn-primary" value="IMPORT TEST"
-                                           name="importtest"></input>
+                                    <input type="submit" class="btn btn-primary" value="IMPORT QUIZ"
+                                           name="importquiz"></input>
                                 </form>
                             </div>
                         </div><!-- row -->
@@ -80,48 +81,46 @@
         </div>
     </div>
     <script>
-        function show_add_test() {
-            $('.add-test').toggle();
+        function show_add_quiz() {
+            $('.add-quiz').toggle();
         }
     </script>
     <script>
         $(document).ready(function () {
-
-            let test_json = {{ available_tests|safe}};
-             console.log(test_json)
+            let quiz_json = {{ available_quizs|safe}};
             let html_category_2 = " </div>\
                 </a>\
             </div>\
             </div>";
-            for (category in test_json) {
+            for (category in quiz_json) {
                 let html_category_1 = "<div class='card-container row'>\<" +
                     "div class='card col-12 col-md-4 col-lg-3 mt-4 mx-1 col-md-offset-1' id='" + category + "' style='background-color:var(--sandy-brown);'>\
                                     <a  >\
                                             <div class='card-block' >";
                 let title = "<h4 class='card-title >" + category + "</h4>";
                 let desc = "<p class='card-text'>" + category + "</p>";
-                $(".test-container").append(html_category_1 + title + desc + html_category_2)
-                for (test in test_json[category]) {
-                    let test_name = test_json[category][test]['test_name']
-                    let test_des = test_json[category][test]['test_description']
-                    let titleT = "<h4 class='card-title '>" + test_name + "</h4>";
-                    let descT = "<p class='card-text'>" + test_des + "</p>";
-                    let test_id = test_json[category][test]['id']
+                $(".quiz-container").append(html_category_1 + title + desc + html_category_2)
+                for (quiz in quiz_json[category]) {
+                    let quiz_name = quiz_json[category][quiz]['quiz_name']
+                    let quiz_des = quiz_json[category][quiz]['quiz_description']
+                    let titleT = "<h4 class='card-title '>" + quiz_name + "</h4>";
+                    let descT = "<p class='card-text'>" + quiz_des + "</p>";
+                    let quiz_id = quiz_json[category][quiz]['id']
                     let sel = ""
-                    let test_url = "{% url 'quizz_app:test_selection' 0 %}";
-                    test_url = test_url.replace('0', test_id)
+                    let quiz_url = "{% url 'quizz_app:quiz_selection' 0 %}";
+                    quiz_url = quiz_url.replace('0', quiz_id)
 
-                    if (test_json[category][test]['test_tries'] > 0) {
+                    if (quiz_json[category][quiz]['quiz_tries'] > 0) {
                         sel = "choice-selected"
                     }
-                    let html_test_1 = "<div class='card col-12 col-md-4 col-lg-3 mt-4 mx-1 col-md-offset-1 animate-left " + category + " " + sel + "' style='background-color:#E9C46A;display:none' id='test_" + test_json[category][test]['id'] + "' >\
-                                    <a href='" + test_url + "'>\
+                    let html_quiz_1 = "<div class='card col-12 col-md-4 col-lg-3 mt-4 mx-1 col-md-offset-1 animate-left " + category + " " + sel + "' style='background-color:#E9C46A;display:none' id='quiz_" + quiz_json[category][quiz]['id'] + "' >\
+                                    <a href='" + quiz_url + "'>\
                                             <div class='card-block' >";
-                    let html_test_2 = " </div>\
+                    let html_quiz_2 = " </div>\
                             </a>\
                         </div>";
-                    let full_test = html_test_1 + titleT + descT + html_test_2;
-                    $("#" + category).after(full_test)
+                    let full_quiz = html_quiz_1 + titleT + descT + html_quiz_2;
+                    $("#" + category).after(full_quiz)
                 }
             }
             $(".card").click(function () {

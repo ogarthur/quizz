@@ -1,0 +1,45 @@
+{% extends "quizz_app/base.html" %}
+{% load staticfiles %}
+{% block head_css_page %}
+    <link href="{% static 'css/login.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'css/coffee.css' %}" rel="stylesheet" media="screen">
+{% endblock head_css_page %}
+{% block title %}QUIZ_SELECTION{% endblock title %}
+{% block content %}
+    <div class="jumbotron text-center">
+        {% if warning %}
+            <div class="alert alert-warning" role="alert">
+                {{ warning }}
+            </div>
+        {% endif %}
+        <h2 class="title-page">{{ quiz.quiz_name |default:"QUIZ" }}</h2>
+        <h3>AVAILABLE QUESTIONS:<span class="print-data">{{ total_questions }}</span></h3>
+    </div>
+
+    <div class="container-fluid ">
+        <div class="container login-container col-md-6 col-md-offset-3">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <form action="{% url 'quizz_app:quiz_selection' quiz.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label class="control-label" for="num_questions">Number of questions:</label>
+                            <input class="form-control"  type="number" name="num_questions" value="{{ total_questions }}" min="1" max="{{ total_questions }}" >
+
+                        </div>
+                        <div class="text-center">
+                            <input class="btn btn-primary" type="submit" name="" value="START">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+    {% block footer_javascript_page %}
+    {% endblock footer_javascript_page %}
+{% endblock %}

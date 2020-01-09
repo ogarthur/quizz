@@ -23,7 +23,9 @@
     width: 100%;
     height: auto;
 }
-
+.add-quiz{
+    display: none;
+}
 .card-logo:hover {
     background-color: #dc920b9e;
     box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 2px #d4d4d5;

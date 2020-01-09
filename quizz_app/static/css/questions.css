@@ -102,16 +102,17 @@
 
 .question-box {
     float: left;
-    min-width: 35px;
+    /*min-width: 35px;*/
     text-align: center;
-    min-height: 18px;
+     /*min-height: 18px;*/
     font-size: 14px;
-    padding: 0em 0.3em 0em 0.3em;
-    margin: 0.3em;
+    padding:0.3em;
+    margin: 0.1em;
     background-color: #dfffad;
     border: 2px solid #98b400;
     text-decoration: none;
-    color: black
+    color: black;
+    font-weight: 700;
 }
 
 .question-box.wrong {
@@ -161,7 +162,7 @@
 }
 
 .mark-box{
-    padding: 0;
+    padding: 0.2em;
     margin:0;
     border: 1px solid var(--sandy-brown);
 }

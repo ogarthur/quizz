@@ -1,0 +1,176 @@
+{% extends "quizz_app/base.html" %}
+{% load staticfiles %}
+{% block head_css_page %}
+    <link href="{% static 'css/login.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'css/coffee.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'css/questions.css' %}" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+{% endblock head_css_page %}
+{% block title %}QUIZ_PAGE{% endblock title %}
+{% block content %}
+    <div class="jumbotron text-center">
+        {% if warning %}
+            <div class="alert alert-warning" role="alert">
+                {{ warning }}
+            </div>
+        {% endif %}
+
+        <h2>{{ quiz.quiz_name |default:"1" }}</h2>
+        <h3>NUMBER OF QUESTIONS:<span class="print-data">{{ num_questions }}</span></h3>
+        <h2 style="display:none;color:red;">RESULT:<span class="print-data" id="showResultado"></span></h2>
+        <h3>
+            <div id="basicUsage">00:00:00</div>
+        </h3>
+    </div>
+    <a href="#cabecera" id="to-top"  class="to-dir">
+        <svg   id="Capa_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+             x="0px" y="0px"
+             width="0.5em" height="0.5em" viewBox="0 -234 400 900"
+             xml:space="preserve">
+            <g id="Rounded_Rectangle_33_copy_4_1_">
+                <path xmlns="http://www.w3.org/2000/svg" d="M35.5 248l148-148.5c4.7-4.7 12.3-4.7 17 0l148 148.5c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0L209 156.1V468c0 6.6-5.4 12-12 12h-10c-6.6 0-12-5.4-12-12V156.1L59.6 272c-4.7 4.7-12.3 4.7-17 0l-7.1-7.1c-4.7-4.6-4.7-12.2 0-16.9zM0 44v8c0 6.6 5.4 12 12 12h360c6.6 0 12-5.4 12-12v-8c0-6.6-5.4-12-12-12H12C5.4 32 0 37.4 0 44z"/>
+            </g>
+        </svg>
+    </a>
+    <a href="#check-button" id="to-bottom" class="to-dir">
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+             x="0px" y="0px"
+             width="0.5em" height="0.5em" viewBox="0 -200 400 900"
+             xml:space="preserve">
+            <g id="Rounded_Rectangle_33_copy_4_1_">
+                <path xmlns="http://www.w3.org/2000/svg" d="M348.5 264l-148 148.5c-4.7 4.7-12.3 4.7-17 0L35.5 264c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0l115.4 116V44c0-6.6 5.4-12 12-12h10c6.6 0 12 5.4 12 12v311.9L324.4 240c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.6 4.7 12.2 0 16.9zM384 468v-8c0-6.6-5.4-12-12-12H12c-6.6 0-12 5.4-12 12v8c0 6.6 5.4 12 12 12h360c6.6 0 12-5.4 12-12z"/>
+            </g>
+        </svg>
+    </a>
+    <div class="container-fluid ">
+    <div class="row" id="marks-container">
+        <div class="col-12 mark-box">
+            {% for key, question in full_quiz.items %}
+                <a href="#question_{{ key }}" id="mark_{{ key }}"
+                   class="question-box"><span>{{ forloop.counter }}</span></a>
+            {% endfor %}
+
+        </div>
+    </div>
+    {% for key, question in full_quiz.items %}
+
+        <div class="questionsBox mt-3 mr-2" id="question_{{ key }}">
+            <div class="questions">{{ forloop.counter }}) {{ question.question }}</div>
+            <ul class="answerList">
+                {% for num, answer in question.answers.items %}
+                    <li>
+                        <label>
+                            <input type="radio" class="answerGroup" name="answer_{{ key }}" value="{{ num }}"
+                                   id="answer_{{ num }}"> {{ answer }}
+                        </label>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+    <div class="row ">
+    <div class="end col-12 col-offset-3 mt-3 mb-3" style="text-align:center;">
+    <button id="check-button" type="button" class="btn btn-success" onclick="check_results()">CHECK RESULTS</button>
+    <div>
+    </div>
+    <script src="{% static 'js/easytimer.min.js' %}"></script>
+    <script>
+        $(".answerGroup").click(function () {
+            id = ($(this).parent().parent().parent().parent().attr('id')).replace("question_", "")
+            if($(this).hasClass("selected")){
+                $(this).removeClass("selected")
+                $(this).parent().parent().parent().find('.selected').removeClass('selected')
+                $(this).parent().parent().parent().find('.label-selected').removeClass('label-selected')
+                $("#mark_"+id).removeClass("mark-selected");
+            }else{
+                $(this).parent().parent().parent().find('.selected').removeClass('selected')
+                $(this).parent().parent().parent().find('.label-selected').removeClass('label-selected')
+                $(this).addClass("selected");
+                $("#mark_"+id).addClass("mark-selected");
+                $(this).parent('label').addClass("label-selected");
+            }
+
+
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            var timer = new easytimer.Timer();
+            timer.start();
+            timer.addEventListener('secondsUpdated', function (e) {
+                $('#basicUsage').html(timer.getTimeValues().toString());
+            });
+            set_same_size();
+        });
+        function set_same_size(){
+            //coger ultima caja, tamaño
+            let cell_height = $(".question-box").last().height();
+            let cell_width = $(".question-box").last().width();
+            console.log(cell_width)
+            $(".question-box").height(cell_height);
+            $(".question-box").width(cell_width);
+            //poner a todos igual de tamaño
+
+        };
+        function check_results() {
+            $( "#to-top")[0].click();
+            let cont = {{  num_questions}};
+            let correct = "";
+            let id = ""
+            let json_result = {{ result_list |safe}};
+            let results = {}
+
+            $(".correct-answer").removeClass('correct-answer');
+            $(".wrong-answer").removeClass('wrong-answer');
+            $(".wrong-answer-box").removeClass("wrong-answer-box");
+            $(".question-box").removeClass("correct");
+            $(".question-box").removeClass("wrong");
+
+            $(".questionsBox").each(function (index) {
+                id = ($(this).attr('id')).replace("question_", "")
+                correct = json_result[id]
+                choice = parseInt($(this).find('.selected').val())
+                $(this).find("#answer_" + correct).parent().addClass("correct-answer")
+                $("#mark_"+id).removeClass("mark-selected");
+                if (correct.indexOf(choice) < 0) {
+
+                    results[id] = 0
+                    $(this).addClass("wrong-answer-box")
+                    $(this).find("#answer_" + choice).parent().addClass("wrong-answer");
+                    $("#mark_"+id).addClass("wrong")
+                    cont--;
+                    $(this).find('.questions').html('<i class="far fa-times-circle" style="color:red"></i>' + $(this).find('.questions').text())
+                } else {
+                    results[id] = 1
+                    $("#mark_"+id).addClass("correct")
+                    $(this).find('.questions').html('<i class="fas fa-check" style="color:green"></i>' + $(this).find('.questions').text())
+                }
+            });
+
+            let resultado = (cont / {{ num_questions }}) * 100
+            $("#showResultado").text(cont + "/" + {{ num_questions }} +"(" + resultado + "%)");
+            $("#showResultado").parent().show()
+            json_result = JSON.stringify(results)
+            console.log(json_result)
+            var token = '{{csrf_token}}';
+
+            $.ajax({
+                type: 'POST',
+                headers: {"X-CSRFToken": token},
+                url: "{% url 'quizz_app:update_results' quiz.id%}",
+                dataType: 'json',
+
+                data: {
+                    'grade': resultado,
+                    'results': json_result,
+                },
+                success: function (result) {
+                }
+            });
+
+        };
+    </script>
+    {% block footer_javascript_page %}
+    {% endblock footer_javascript_page %}
+{% endblock %}
