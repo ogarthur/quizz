@@ -2,42 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c4edddc-3e92-4392-b5f4-58482fb98fe0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/quizz_app/model/quiz.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/quizz.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/quizz.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/migrations/0002_auto_20190527_1920.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/migrations/0003_auto_20190527_1924.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/migrations/0004_auto_20190527_1924.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/migrations/0005_auto_20190527_2013.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/migrations/0006_test_test_tries.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/migrations/0007_test_test_ok.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/migrations/0008_auto_20190528_1846.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/migrations/0009_auto_20190529_1215.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/migrations/0010_auto_20190529_1653.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/migrations/0011_auto_20190531_0023.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/migrations/0012_auto_20190531_0132.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/migrations/0013_auto_20190618_1608.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/migrations/0014_auto_20190624_1648.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/migrations/0015_auto_20190624_1649.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/model/answer.py" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/model/answer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/model/question.py" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/model/question.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/model/test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/static/css/coffee.css" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/static/css/coffee.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quizz_app/static/css/questions.css" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/static/css/questions.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/templates/quizz_app/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/templates/quizz_app/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/templates/quizz_app/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/templates/quizz_app/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/templates/quizz_app/test_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/templates/quizz_app/quiz_page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/templates/quizz_app/test_selection.html" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/templates/quizz_app/quiz_selection.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/basic.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/basic.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quizz_app/templates/quizz_app/quiz_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/templates/quizz_app/quiz_page.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -191,7 +158,9 @@
       <workItem from="1578506389087" duration="556000" />
       <workItem from="1578506961782" duration="3722000" />
       <workItem from="1578524047084" duration="1514000" />
-      <workItem from="1578568481838" duration="3457000" />
+      <workItem from="1578568481838" duration="4800000" />
+      <workItem from="1578660061538" duration="620000" />
+      <workItem from="1578932392867" duration="2899000" />
     </task>
     <task id="LOCAL-00001" summary="Updated requirements.txt to fix security issues. &#10;Used newest version of Django and Pillow">
       <created>1573041971503</created>
@@ -247,14 +216,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/quizz_app/templates/quizz_app/quiz_page.html</url>
-          <line>97</line>
+          <line>99</line>
           <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/quizz_app/templates/quizz_app/quiz_page.html</url>
-          <line>115</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

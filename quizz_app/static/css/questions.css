@@ -50,7 +50,10 @@
 .answerList li:first-child {
     border-top-width: 0
 }
-
+#basicUsage{
+    color: red;
+    font-weight: 700;
+}
 .answerList label {
     display: block;
     padding: 6px;
@@ -91,7 +94,7 @@
 }
 
 .correct-answer {
-    background-color: #8bc34a;
+    background-color: #8bc34a!important;
     border-color: #e2f8cf;
 }
 
