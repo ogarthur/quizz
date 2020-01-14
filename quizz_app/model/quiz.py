@@ -27,7 +27,7 @@ class Quiz(models.Model):
 class QuizUser(models.Model):
     quiz_attempts = models.IntegerField(default=0)
     quiz_avg_result = models.IntegerField(default=0)
-
+    #time?
     quiz_quiz = models.ForeignKey(Quiz, related_name="quiz_quiz", on_delete=models.CASCADE)
     quiz_user = models.ForeignKey(User, related_name="quiz_user", on_delete=models.CASCADE)
 

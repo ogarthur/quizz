@@ -14,7 +14,7 @@ class Question(models.Model):
     question_quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='question_quiz')
 
     def __str__(self):
-        return self.question_text
+        return str(self.id)+"-"+self.question_text
 
 
 class QuestionUser(models.Model):
@@ -25,7 +25,7 @@ class QuestionUser(models.Model):
     question_question = models.ForeignKey(Question, related_name="question_question", on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{}_{}:{}".format(self.id, self.question_question_id, self.question_user_id)
+        return "{}".format( self.question_question)
 
     def question_ratio(self):
         if self.question_fails + self.question_hits > 0:

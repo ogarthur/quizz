@@ -3,8 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="5c4edddc-3e92-4392-b5f4-58482fb98fe0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/static/css/questions.css" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/static/css/questions.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quizz_app/model/question.py" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/model/question.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quizz_app/model/quiz.py" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/model/quiz.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quizz_app/templates/quizz_app/quiz_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/templates/quizz_app/quiz_page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quizz_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -161,6 +163,8 @@
       <workItem from="1578568481838" duration="4800000" />
       <workItem from="1578660061538" duration="620000" />
       <workItem from="1578932392867" duration="2899000" />
+      <workItem from="1578943308173" duration="600000" />
+      <workItem from="1579020698218" duration="5565000" />
     </task>
     <task id="LOCAL-00001" summary="Updated requirements.txt to fix security issues. &#10;Used newest version of Django and Pillow">
       <created>1573041971503</created>
@@ -201,17 +205,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/quizz_app/views.py</url>
-          <line>160</line>
+          <line>161</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/quizz_app/views.py</url>
-          <line>202</line>
+          <line>223</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/quizz_app/views.py</url>
-          <line>18</line>
+          <line>19</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">

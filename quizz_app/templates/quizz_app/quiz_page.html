@@ -9,7 +9,7 @@
 {% endblock head_css_page %}
 {% block title %}QUIZ_PAGE{% endblock title %}
 {% block content %}
-    <div class="jumbotron text-center">
+    <div id="top-container" class="jumbotron text-center">
         {% if warning %}
             <div class="alert alert-warning" role="alert">
                 {{ warning }}
@@ -130,22 +130,28 @@
                   }
                 });
 
-            //
-            //
             if (confirm(msg)) {
+
                 $("#to-top")[0].click();
+                let button_try= '<a" id="try_button"  class="btn btn-success dissabled" >TRY AGAIN</a>'
+                let button_back = '<a id="try_button" type="button" class="btn btn-success" href="/">GO BACK TO MENU</a>'
                 let cont = {{  num_questions}};
                 let correct = "";
                 let id = ""
                 let json_result = {{ result_list |safe}};
                 let results = {}
 
+                $("#check-button").parent().append(button_try);
+
                 $(".correct-answer").removeClass('correct-answer');
                 $(".wrong-answer").removeClass('wrong-answer');
                 $(".wrong-answer-box").removeClass("wrong-answer-box");
                 $(".question-box").removeClass("correct");
                 $(".question-box").removeClass("wrong");
-
+                $("#basicUsage").parent().append("<h4>TIME SPENT: <span id='time_spent' style='color:red'>"+quiz_time+" </span></h4>");
+                $("#basicUsage").remove();
+                $("#top-container").append(button_back);
+                $("#check-button").remove()
                 $(".questionsBox").each(function (index) {
                     id = ($(this).attr('id')).replace("question_", "")
                     correct = json_result[id]
@@ -188,7 +194,6 @@
                     success: function (result) {
                     }
                 });
-
             }
         };
 

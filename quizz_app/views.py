@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect
+from django.db.models import F
 
 import json
 import csv
@@ -159,21 +160,41 @@ def quiz_selection(request, quiz_id):
 
 @login_required
 def update_results(request, quiz_id):
-    if request.method == "POST":
 
+    if request.method == "POST":
         grade = json.loads(request.POST.get('grade', None))
         results = json.loads(request.POST.get('results', None))
         quiz = Quiz.objects.get(id=quiz_id)
+
         try:
             quiz_user = QuizUser.objects.get(quiz_quiz_id=quiz_id, quiz_user=request.user)
 
         except QuizUser.DoesNotExist:
             quiz_user = QuizUser.objects.create(quiz_quiz=quiz, quiz_user=request.user)
-        if int(grade) > 50:
-            quiz_user.quiz_ok += 1
+        quiz_user.quiz_attempts += 1
+
+        if quiz_user.quiz_avg_result == 0:
+            quiz_user.quiz_avg_result = grade
         else:
-            quiz_user.quiz_fails += 1
+            quiz_user.quiz_avg_result = (quiz_user.quiz_avg_result + grade)/2
         quiz_user.save()
+
+        for result in results:
+            n_question = Question.objects.get(id=result)
+
+            if results[result] == 0:
+                fail = 1
+                hit = 0
+            else:
+                fail = 0
+                hit = 1
+            try:
+                question_user = QuestionUser.objects.get(question_question=n_question, question_user=request.user)
+            except QuestionUser.DoesNotExist:
+                question_user = QuestionUser.objects.create(question_question=n_question, question_user=request.user)
+            question_user.question_fails = question_user.question_fails + fail
+            question_user.question_hits = question_user.question_hits + hit
+            question_user.save()
 
         '''
         questions = Question.objects.filter(question_quiz=te)
@@ -196,7 +217,7 @@ def update_results(request, quiz_id):
         '''
         return HttpResponse()
     else:
-        return  HttpResponse()
+        return HttpResponse()
 
 
 @login_required
