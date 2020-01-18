@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load staticfiles %}
+{% load static %}
 
 <html>
 <head>
@@ -70,9 +70,10 @@
 
                         {{ request.user.username }}
                         <span class="caret"></span></a>
-                    <div class="dropdown-menu"  style="background-color: #e03a3a;color:white" >
+                    <div class="dropdown-menu"  style="background-color:rgba(220, 188, 109, 0.78);" >
+                        <a class="dropdown-item" href="{% url 'quizz_app:show_stats' %}">Show stats</a>
+                        <a class="dropdown-item" style="background-color:red" href="{% url 'account_app:user_logout' %}">Logout</a>
 
-                        <a class="dropdown-item" href="{% url 'account_app:user_logout' %}">Logout</a>
                     </div>
                 </li>
             </ul>

@@ -2,17 +2,47 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c4edddc-3e92-4392-b5f4-58482fb98fe0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/quizz_app/templates/quizz_app/show_stats.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quizz_app/model/question.py" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/model/question.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account_app/templates/account_app/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/account_app/templates/account_app/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account_app/templates/account_app/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/account_app/templates/account_app/registration.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account_app/templates/account_app/userProfile.html" beforeDir="false" afterPath="$PROJECT_DIR$/account_app/templates/account_app/userProfile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quizz_app/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/quizz_app/migrations/0002_auto_20191111_1402.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/quizz_app/migrations/0003_auto_20200108_1935.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/quizz_app/model/quiz.py" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/model/quiz.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quizz_app/static/css/coffee.css" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/static/css/quizz-style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quizz_app/static/css/questions.css" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/static/css/questions.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quizz_app/templates/quizz_app/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/templates/quizz_app/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quizz_app/templates/quizz_app/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/templates/quizz_app/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quizz_app/templates/quizz_app/quiz_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/templates/quizz_app/quiz_page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quizz_app/templates/quizz_app/quiz_selection.html" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/templates/quizz_app/quiz_selection.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quizz_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quizz_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/quizz_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" module-name="quizz" is-module-sdk="true">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
@@ -41,8 +71,9 @@
   <component name="ProjectId" id="1TM1eUVAjduObxaPsVU3hxazDSl" />
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../flask_book/flasky" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/quizz_app/templates/quizz_app" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -58,19 +89,19 @@
     </option>
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Documentos\proyectos\quizz\quizz_app\scripts" />
-      <recent name="D:\Documentos\proyectos\quizz" />
-      <recent name="D:\Documentos\proyectos\quizz\quizz" />
-      <recent name="D:\Documentos\proyectos\quizz\quizz_app" />
-      <recent name="D:\Documentos\proyectos\quizz\quizz_app\static\js" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Documentos\proyectos\quizz\quizz_app\static\images" />
       <recent name="D:\Documentos\proyectos\quizz\quizz\settings" />
       <recent name="D:\Documentos\proyectos\quizz\static\css" />
       <recent name="D:\Documentos\proyectos\quizz\quizz_app\static\js" />
       <recent name="D:\Documentos\proyectos\quizz\static\images\svgs" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Documentos\proyectos\quizz\quizz_app\templates\quizz_app" />
+      <recent name="D:\Documentos\proyectos\quizz\quizz_app\scripts" />
+      <recent name="D:\Documentos\proyectos\quizz" />
+      <recent name="D:\Documentos\proyectos\quizz\quizz" />
+      <recent name="D:\Documentos\proyectos\quizz\quizz_app" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -164,7 +195,10 @@
       <workItem from="1578660061538" duration="620000" />
       <workItem from="1578932392867" duration="2899000" />
       <workItem from="1578943308173" duration="600000" />
-      <workItem from="1579020698218" duration="5565000" />
+      <workItem from="1579020698218" duration="8148000" />
+      <workItem from="1579103640498" duration="5820000" />
+      <workItem from="1579177402063" duration="2457000" />
+      <workItem from="1579275803304" duration="13995000" />
     </task>
     <task id="LOCAL-00001" summary="Updated requirements.txt to fix security issues. &#10;Used newest version of Django and Pillow">
       <created>1573041971503</created>
@@ -205,23 +239,24 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/quizz_app/views.py</url>
-          <line>161</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/quizz_app/views.py</url>
-          <line>223</line>
+          <line>243</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/quizz_app/views.py</url>
-          <line>19</line>
+          <line>20</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/quizz_app/templates/quizz_app/quiz_page.html</url>
           <line>99</line>
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/quizz_app/templates/quizz_app/home.html</url>
+          <line>113</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

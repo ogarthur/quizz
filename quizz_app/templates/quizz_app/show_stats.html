@@ -1,0 +1,80 @@
+{% extends "quizz_app/base.html" %}
+{% load static %}
+{% block head_css_page %}
+    <link href="{% static 'css/login.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'css/quizz-style.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'css/questions.css' %}" rel="stylesheet" media="screen">
+{% endblock head_css_page %}
+{% block title %}STATS{% endblock title %}
+{% block content %}
+    {% if warning %}
+        <div class="jumbotron text-center">
+            <div class="alert alert-warning" role="alert">
+                {{ warning }}
+            </div>
+        </div>
+    {% endif %}
+    <div class="quiz-container">
+        <div class="row">
+
+                        </div><!-- row -->
+                    </div><!-- container-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+        $(document).ready(function () {
+
+            let quiz_json = {{ quiz_results|safe}};
+            console.log(quiz_json);
+            let html_category_2 = " </div>\
+                </a>\
+            </div>\
+            </div>";
+            for (category in quiz_json) {
+
+                let html_category_1 = "<div class='card-container row'>\<" +
+                    "div class='card col-12 col-md-4 col-lg-3 mt-4 mx-1 col-md-offset-1' id='" + category + "' style='background-color:var(--sandy-brown);'>\
+                                    <a  >\
+                                            <div class='card-block' >";
+                let title = "<h4 class='card-title >" + category + "</h4>";
+                let desc = "<p class='card-text'>" + category + "</p>";
+
+                $(".quiz-container").append(html_category_1 + title + desc + html_category_2)
+                for (quiz in quiz_json[category]) {
+                    let quiz_name = quiz_json[category][quiz]['name']
+                    let quiz_avg_result = quiz_json[category][quiz]['avg_result']
+                    let score = "fail-score";
+                    if (quiz_avg_result >= 50){
+                        score = "pass-score"
+                    }
+                    console.log(score);
+                    let attempts = quiz_json[category][quiz]['attempts']
+                    let titleT = "<h4 class='card-title '>" + quiz_name + "</h4>";
+                    let descT = "<p class='card-text'>AVG Result:" + quiz_avg_result+ "%</p>";
+                    descT +="<p class='card-text'>Tries:" + attempts+ "</p>";
+                    let sel = ""
+
+
+                    if (quiz_json[category][quiz]['quiz_tries'] > 0) {
+                        sel = "choice-selected"
+                    }
+                    let html_quiz_1 = "<div class='card col-12 col-md-4 col-lg-3 mt-4 mx-1 col-md-offset-1 animate-left " + category + " " + sel +" " +score+ "' style='background-color:#E9C46A;display:none' id='quiz_" + quiz_json[category][quiz]['name']+ "' >\
+                                            <div class='card-block' >";
+                    let html_quiz_2 = " </div>\
+                        </div>";
+                    let full_quiz = html_quiz_1 + titleT + descT + html_quiz_2;
+                    $("#" + category).after(full_quiz)
+                }
+            }
+            $(".card").click(function () {
+                let bloque = $(this).attr('id')
+                $("." + bloque).toggle();
+            });
+        });
+    </script>
+    {% block footer_javascript_page %}
+    {% endblock footer_javascript_page %}
+{% endblock %}

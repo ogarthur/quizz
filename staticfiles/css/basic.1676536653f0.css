@@ -1,0 +1,220 @@
+/*
+#dde8dc color hover verdoso
+#b2cc99 hover verde mas oscuro
+*/
+:root {
+    --japanese-indigo: #264653;
+    --jungle-green: #2A9D8F;
+    --hansa-yellow: #E9C46A;
+    --sandy-brown: #F4A261;
+    --sandy-brown-light: #f0daa34d;
+    --little-sandy:#f8d6839e;
+    --light-red-orchre: #E76F51;
+    --main-txt-color: blue;
+    --main-padding: 15px;
+    --main-backgroung:#ffc8241a;
+}
+
+html,
+body {
+    font-family: "Roboto script=all rev=2", "Adobe Blank";
+    font-weight: 400;
+    font-style: normal;
+    height: 100%;
+    position: relative;
+    background-color: var(--sandy-brown-light);
+}
+
+footer {
+    /*margin-top:3.5em;*/
+    width: 100%;
+    height: auto;
+    background-color: var(--sandy-brown);
+    border-radius: 0 !important;
+}
+.brand-logo{
+    width: 1em;
+}
+.content-container {
+    /*min-height: 95vh; /* will cover the 90% of viewport */
+    overflow: hidden;
+    display: block;
+    position: relative;
+
+
+}
+#invitationContainer{
+       display:none;
+}
+.hidden-box {
+    margin-top:0.5em;
+
+    padding:0.5em;
+    background: var(--sandy-brown-light);
+}
+
+.jumbotron {
+    background-color: var(--sandy-brown); /* verde */
+    color: #ffffff;
+    padding: 0 0.5em 0.5em 0.5em;
+    border-radius: 0;
+}
+
+.bg-grey {
+    background-color: #f6f6f6;
+}
+
+.description-TextInput {
+    min-height: 6em;
+}
+
+.perfil-container {
+    background-color: var(--jungle-green);
+    border-radius: 5%;
+    padding: 2em 4em 2em 5em;
+}
+
+input {
+    color: black;
+}
+
+.jumbotron .btn-primary {
+    background: #76bc9e;
+    border-color: #76bc9e
+}
+
+.jumbotron .btn-primary:hover {
+    background: #43896b
+}
+
+.jumbotron p {
+    color: #ffffff;
+    max-width: 75%;
+    margin: 1em auto 2em
+}
+
+.jumbotron-top {
+    margin-top: 20px
+}
+
+/* FORMS */
+.name-form {
+    text-align: center;
+}
+
+.file-input {
+    display: inline-block !important;
+    background-color: #f0fff5;
+    padding: 1em;
+}
+
+
+.control-label {
+    font-size: 21px;
+}
+
+.avatar-img-nav {
+    width: 2em;
+    border-radius: 50%
+}
+
+.avatar-img-nav,
+.glyphicon-user {
+    padding-right: 0.5em;
+}
+nav{
+    background-color: var( --hansa-yellow);
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus {
+    background-color: #b2cc99;
+}
+
+
+.logo {
+    width: 30em;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.logo-img {
+    display: inline-block;
+}
+
+.logo-img:hover {
+    background-color: #b2cc99 !important;
+}
+
+.error_warning {
+    color: red
+}
+
+
+.dropdown:hover, .dropdown-menu li a:hover {
+    background-color: #b2cc99 !important;
+}
+
+.phase-indicator {
+    pointer-events: none;
+}
+
+.first-indicator {
+    pointer-events: auto !important;
+}
+
+.first-indicator:hover {
+    background-color: #b2cc99 !important;
+}
+
+.registration-container, .login-container {
+    background-color: var(--hansa-yellow);
+    padding: 2em;
+}
+
+.profile-header {
+    font-weight: bold;
+}
+
+.perfil-img {
+    max-height: 200px;
+    border-radius: 50%;
+    margin-top: 3em;
+}
+
+.perfil-img-sm {
+    width: 1.6em;
+    border-radius: 50%;
+}
+
+.glyphicon-pencil {
+    font-size: 2em;
+}
+
+.glyphicon-pencil:hover {
+    color: #f57314;
+    cursor: pointer;
+}
+
+
+@media screen and (min-width: 769px) {
+    .registration-container {
+
+        margin-bottom: 2em;
+        margin-top: 2em;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .col-sm-4 {
+        text-align: center;
+        margin: 25px 0;
+    }
+
+    .control-label {
+        font-size: 14px;
+    }
+
+    .form-group {
+        margin-bottom: 2em;
+    }
+
+}

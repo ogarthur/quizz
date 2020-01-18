@@ -83,7 +83,12 @@
     background-color: #ebeb20 !important;
     border: solid 2px #97721f !important;
 }
-
+.fail-score{
+    background-color: #fe4d4d!important;
+}
+.pass-score{
+    background-color: #35cc57!important;
+}
 .wrong-answer {
     background-color: #ff2c2c;
     border-color: #fae1e1;

@@ -11,6 +11,7 @@ from .model.quiz import Quiz, QuizUser, CategoryQuiz
 from .model.question import Question, QuestionUser
 from .model.answer import Answer
 
+from account_app.models import User
 
 from .forms import ImportForm
 from . import forms
@@ -32,25 +33,23 @@ def index(request):
             reader = csv.reader(decoded_file)
             try:
                 the_quiz = list(reader)
-
-                if len(the_quiz[0]) >= 3:
-                    print("DESCRIPTION")
-                    n_desc = the_quiz[0][2]
-                else:
-                    print(" NO DESCRIPTION")
-                    n_desc = ""
-
+                n_desc = ""
                 is_random = False
+                if len(the_quiz[0]) >= 3:
+                    n_desc = the_quiz[0][2]
+
                 if len(the_quiz[0]) >= 4:
                     if the_quiz[0][3] == "1":
                         is_random = True
-                print(is_random)
+                print("gere")
+                print(User.objects.get(id=request.user.id))
                 n_quiz = Quiz.objects.create(quiz_name=the_quiz[0][1],
                                               quiz_category=the_quiz[0][0],
                                               quiz_description=n_desc,
-                                              quiz_randomizable=is_random)
+                                              quiz_randomizable=is_random,
+                                              quiz_allowed_users =request.user)
+
                 n_quiz.save()
-                print("S")
                 bulk_questions = []
                 bulk_answers = []
                 for question in range(1, len(the_quiz)):
@@ -95,7 +94,6 @@ def index(request):
                     ordered_quizs[quiz['quiz_category']].append(quiz)
                 else:
                     ordered_quizs[quiz['quiz_category']] = []
-                    #ordered_quizs[quiz['quiz_category']] = quiz.quiz_category
 
                     ordered_quizs[quiz['quiz_category']].append(quiz)
 
@@ -220,6 +218,28 @@ def update_results(request, quiz_id):
         return HttpResponse()
 
 
+@login_required
+def show_stats(request, **kwargs):
+    #get results per test and save them
+    quiz_users = QuizUser.objects.filter(quiz_user=request.user)
+    quiz_results = {}
+
+    for quiz in quiz_users:
+        if quiz.quiz_quiz.quiz_category not in quiz_results:
+            quiz_results[quiz.quiz_quiz.quiz_category] = []
+        quiz_n = {}
+        quiz_n[quiz.quiz_quiz.id] = {}
+        quiz_n[quiz.quiz_quiz.id]['name'] = quiz.quiz_quiz.quiz_name
+        quiz_n[quiz.quiz_quiz.id]['category'] = quiz.quiz_quiz.quiz_category
+        quiz_n[quiz.quiz_quiz.id]['attempts'] = quiz.quiz_attempts
+        quiz_n[quiz.quiz_quiz.id]['avg_result'] = quiz.quiz_avg_result
+
+        quiz_results[quiz.quiz_quiz.quiz_category].append(quiz_n[quiz.quiz_quiz.id])
+
+    json_quiz_results = json.dumps(quiz_results)
+    return render(request, 'quizz_app/show_stats.html',
+                  {'quiz_results': json_quiz_results})
+    pass
 @login_required
 def import_quiz(request, **kwargs):
     pass

@@ -1,8 +1,8 @@
 {% extends "quizz_app/base.html" %}
-{% load staticfiles %}
+{% load static %}
 {% block head_css_page %}
     <link href="{% static 'css/login.css' %}" rel="stylesheet" media="screen">
-    <link href="{% static 'css/coffee.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'css/quizz-style.css' %}" rel="stylesheet" media="screen">
     <link href="{% static 'css/questions.css' %}" rel="stylesheet" media="screen">
 {% endblock head_css_page %}
 {% block title %}HOME{% endblock title %}
@@ -25,38 +25,63 @@
                             <div class="container registration-container">
                                 <h2>IMPORT QUIZ:</h2>
                                 <hr/>
-                                <span>The file must be CSV. Correct answer is 1 and wrong is 0. It must follow this structure:</span>
-                                <table class="table table-striped">
-                                    <tbody>
-                                    <tr>
-                                        <td>Category</td>
-                                        <td>Quiz name</td>
-                                        <td>Quiz description(OPTIONAL)</td>
-                                        <td>Randomizable(1 yes, 0 no. IF empty it won't be random) </td>
-                                         <td> </td>
-                                        <td> </td>
-                                        <td> </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Question</td>
-                                        <td>answer_1</td>
-                                        <td>is_answer_1_correct</td>
-                                        <td>answer_2</td>
-                                        <td>is_answer_2_correct</td>
-                                        <td> </td>
-                                        <td> </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Question2</td>
-                                        <td>answer_1</td>
-                                        <td>is_answer_1_correct</td>
-                                        <td>answer_2</td>
-                                        <td>is_answer_2_correct</td>
-                                        <td>answer_3</td>
-                                        <td>is_answer_3_correct</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                <span>The file must be CSV or JSON. Correct answer is 1 and wrong is 0. It must follow this structure:</span>
+                                <div id="csv-example">
+
+                                    <table class="table table-striped">
+
+                                        <tr>
+                                            <td>Category</td>
+                                            <td>Quiz name</td>
+                                            <td>Quiz description(OPTIONAL)</td>
+                                            <td>Randomizable(1 yes, 0 no. IF empty it won't be random)</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Question</td>
+                                            <td>answer_1</td>
+                                            <td>is_answer_1_correct</td>
+                                            <td>answer_2</td>
+                                            <td>is_answer_2_correct</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Question2</td>
+                                            <td>answer_1</td>
+                                            <td>is_answer_1_correct</td>
+                                            <td>answer_2</td>
+                                            <td>is_answer_2_correct</td>
+                                            <td>answer_3</td>
+                                            <td>is_answer_3_correct</td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+                                <pre id="json-example"> </pre>
+
+                                <script>
+
+
+                                    var json_example = {
+                                        "category": "category_name",
+                                        "quiz_name": "quiz_name_here",
+                                        "quiz_description": "description of quiz",
+                                        "random": "1 or 0,being 1 yes",
+                                        "questions": {
+                                            "question_text": " is this fantasy?",
+                                            "answers": {
+                                                "ans_text": "ans_val",
+                                                "ans_text2": "ans_val2"
+                                            }
+                                        }
+                                    };
+                                    document.getElementById("json-example").innerHTML = JSON.stringify(json_example, undefined, 4);
+                                </script>
+
+
                                 <form method="post" name="import_Form" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     {% for field in import_form %}

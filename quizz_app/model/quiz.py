@@ -20,6 +20,8 @@ class Quiz(models.Model):
     quiz_randomizable = models.BooleanField(default=False)
     quiz_penalization = models.IntegerField(default=0)
 
+    quiz_allowed_users = models.ForeignKey(User, related_name="allowed_user", on_delete=models.CASCADE)
+
     def __str__(self):
         return "{}: {}".format(self.quiz_category, self.quiz_name)
 
