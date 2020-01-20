@@ -2,10 +2,12 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect
+from django.contrib import messages
 from django.db.models import F
 
 import json
 import csv
+import sys
 
 from .model.quiz import Quiz, QuizUser, CategoryQuiz
 from .model.question import Question, QuestionUser
@@ -22,14 +24,13 @@ def index(request):
     """
     main view
     """
+    warning_msg_same = "A quiz with the same name already exists, please change the name of the quiz or delete the existing one"
     import_form = forms.ImportForm()
     if request.method == 'POST':
         import_form = forms.ImportForm(request.POST)
         file = request.FILES['file']
         if file.name.endswith('.csv'):
-            #decoded_file = file.read().decode('utf-8').splitlines().encode('UTF-8')
             decoded_file = file.read().decode('UTF-8').splitlines()
-
             reader = csv.reader(decoded_file)
             try:
                 the_quiz = list(reader)
@@ -41,8 +42,11 @@ def index(request):
                 if len(the_quiz[0]) >= 4:
                     if the_quiz[0][3] == "1":
                         is_random = True
-                print("gere")
-                print(User.objects.get(id=request.user.id))
+
+                if Quiz.objects.filter(quiz_name=the_quiz[0][1]).exists():
+                    messages.warning(request, warning_msg_same)
+
+                    return redirect(index)
                 n_quiz = Quiz.objects.create(quiz_name=the_quiz[0][1],
                                               quiz_category=the_quiz[0][0],
                                               quiz_description=n_desc,
@@ -79,6 +83,47 @@ def index(request):
                 Answer.objects.bulk_create(bulk_answers)
             except:
                 pass
+        elif file.name.endswith('.json'):
+
+            json_data = json.load(file)
+            if Quiz.objects.filter(quiz_name=json_data['quiz_name']).exists():
+                messages.warning(request, warning_msg_same)
+            try:
+
+                if json_data['random'] == "1":
+                    is_random = True
+                else:
+                    is_random = False
+
+                n_quiz = Quiz.objects.create(quiz_name=json_data['quiz_name'],
+                                             quiz_category=json_data['category'],
+                                             quiz_description=json_data['quiz_description'],
+                                             quiz_randomizable=is_random,
+                                             quiz_allowed_users=request.user)
+
+                n_quiz.save()
+                #bulk_questions = []
+
+                for question in json_data['questions']:
+                    bulk_answers = []
+                    n_question = Question()
+                    n_question.question_text = question['question_text']
+                    n_question.question_quiz = n_quiz
+                    n_question.save()
+
+                    for answer in question['answers']:
+
+                        n_answer = Answer()
+                        n_answer.answer_text = answer['answer_text']
+                        n_answer.correct_answer = answer['answer_value']
+                        n_answer.answer_question = n_question
+                        bulk_answers.append(n_answer)
+                #Question.objects.bulk_create(bulk_questions)
+                    Answer.objects.bulk_create(bulk_answers)
+            except:
+                pass
+
+            pass
         return redirect('index')
 
     else:
@@ -106,6 +151,7 @@ def index(request):
         return render(request, 'quizz_app/home.html',
                       {'available_quizs': json_available_quizs,
                        'import_form': import_form,
+
                        })
 
 

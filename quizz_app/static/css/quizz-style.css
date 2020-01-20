@@ -1,19 +1,32 @@
-#cabecera{
-	color: #5d4e30;
-	font-size: 1.5em;
+#cabecera {
+    color: #5d4e30;
+    font-size: 1.5em;
     font-weight: 700;
 }
-#cabecera:hover{
-	text-shadow: 0px 0px 6px rgba(132, 89, 89, 0.75);
+
+#cabecera:hover {
+    text-shadow: 0px 0px 6px rgba(132, 89, 89, 0.75);
 }
-#json-example{
-        text-align: initial;
+
+#json-example {
+    text-align: initial;
+    background-color: #ffe5a6;
+}
+
+#csv-example {
+    background-color: #ffe5a6;
+     overflow-x: auto;
+}
+#csv-example-table{
+
+
 }
 /*****************CARDS*************************/
-.print-data{
-    color:#ff0707;
+.print-data {
+    color: #ff0707;
     font-weight: bold;
 }
+
 .card {
     cursor: pointer;
 
@@ -26,17 +39,21 @@
     border-radius: .28571429rem;
     box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
 }
-.card-product{
-     cursor: pointer;
+
+.card-product {
+    cursor: pointer;
 }
+
 .card-img-top {
     display: block;
     width: 100%;
     height: auto;
 }
-.add-quiz{
+
+.add-quiz {
     display: none;
 }
+
 .card-logo:hover {
     background-color: #dc920b9e;
     box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 2px #d4d4d5;
@@ -111,7 +128,22 @@
     /*pointer-events: none;
     cursor: default;*/
 }
-.animate-left{position:relative;animation:animateleft 0.4s}@keyframes animateleft{from{left:-300px;opacity:0} to{left:0;opacity:1}}
+
+.animate-left {
+    position: relative;
+    animation: animateleft 0.4s
+}
+
+@keyframes animateleft {
+    from {
+        left: -300px;
+        opacity: 0
+    }
+    to {
+        left: 0;
+        opacity: 1
+    }
+}
 
 
 /*****************ENDCARDS*************************/

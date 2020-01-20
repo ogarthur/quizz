@@ -7,6 +7,14 @@
 {% endblock head_css_page %}
 {% block title %}HOME{% endblock title %}
 {% block content %}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }} alert alert-warning"
+                                         role="alert"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
     {% if warning %}
         <div class="jumbotron text-center">
             <div class="alert alert-warning" role="alert">
@@ -25,10 +33,18 @@
                             <div class="container registration-container">
                                 <h2>IMPORT QUIZ:</h2>
                                 <hr/>
-                                <span>The file must be CSV or JSON. Correct answer is 1 and wrong is 0. It must follow this structure:</span>
-                                <div id="csv-example">
+                                <span>The quiz file must be in CSV or JSON and it must follow the correct structure. You can show an example of the structure below:</span>
+                            <div class="col-12" style="margin:0.5em">
+                                <button class=" end btn-success btn " onclick="toggle_example('csv-example')">CSV
+                                    EXAMPLE
+                                </button>
+                                <button class=" end btn-success btn " onclick="toggle_example('json-example')">JSON
+                                    EXAMPLE
+                                </button>
+                            </div>
 
-                                    <table class="table table-striped">
+                                <div id="csv-example" style="display: none">
+                                    <table id="csv-example-table" class="table table-striped">
 
                                         <tr>
                                             <td>Category</td>
@@ -60,7 +76,7 @@
 
                                     </table>
                                 </div>
-                                <pre id="json-example"> </pre>
+                                <pre  style="display: none" id="json-example"> </pre>
 
                                 <script>
 
@@ -70,13 +86,32 @@
                                         "quiz_name": "quiz_name_here",
                                         "quiz_description": "description of quiz",
                                         "random": "1 or 0,being 1 yes",
-                                        "questions": {
-                                            "question_text": " is this fantasy?",
-                                            "answers": {
-                                                "ans_text": "ans_val",
-                                                "ans_text2": "ans_val2"
-                                            }
-                                        }
+                                        "questions": [
+                                            {
+                                                "question_text": " is this fantasy?",
+                                                "answers": [{
+                                                    "answer_text": "ANSER IS ONE",
+                                                    "answer_value": "1"
+                                                },
+                                                    {
+                                                        "answer_text": "WRONG ANSWER",
+                                                        "answer_value": "0"
+                                                    }
+                                                ]
+
+                                            },
+                                            {
+                                                "question_text": " hello world?",
+                                                "answers": [{
+                                                    "answer_text": "ANSER IS ONE",
+                                                    "answer_value": "1"
+                                                },
+                                                    {
+                                                        "answer_text": "WRONG ANSWER",
+                                                        "answer_value": "0"
+                                                    }
+                                                ]
+                                            }]
                                     };
                                     document.getElementById("json-example").innerHTML = JSON.stringify(json_example, undefined, 4);
                                 </script>
@@ -153,6 +188,23 @@
                 $("." + bloque).toggle();
             });
         });
+
+        function toggle_example(idExample) {
+            console.log(idExample)
+            if (idExample == "csv-example") {
+                var y = document.getElementById("json-example");
+            } else {
+                var y = document.getElementById("csv-example");
+            }
+            var x = document.getElementById(idExample);
+
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                y.style.display = "none"
+            } else {
+                x.style.display = "none";
+            }
+        }
     </script>
     {% block footer_javascript_page %}
     {% endblock footer_javascript_page %}
